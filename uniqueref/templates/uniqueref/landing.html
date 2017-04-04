@@ -1,0 +1,11 @@
+{% extends 'uniqueref/base_uniqueref.html' %}
+{% block title %}Welcome!{% endblock %}
+{% block base_content %}
+	{% if user.is_authenticated %}
+			<h2> Hi {{ user.first_name }}</h2> 
+			<p>good to see you back!<br>Use the menu on the left to move around through this application. In case you found yourself lost in the deepweb, remember there's always a way to warp yourself back to the surface (click the link to the <a href="/uniqueref/help">documentation</a>)</p>
+    	{% else %}
+		Please login to continue
+		{% block content %}{% endblock %}
+	{% endif %}
+{% endblock %}
