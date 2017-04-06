@@ -262,9 +262,6 @@ def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, p
     full_df = custom_functions.df_multiple_geneplot(genes_df['relgene'].values.tolist(), screenids_array, pvcutoff, authorized_screens)
     calculated_plot_width = custom_functions.calc_geneplot_width(plot_width, len(x_range))
     plot_dict = {}
-    # We need a little extra check here to prevent a crash in the browser when a one is trying to plot a gene that has
-    # never been hit in the gene:
-#    print(full_df)
     for y in figures:
         df = full_df[full_df['relgene']==y]
         title=y+(genes_df[genes_df['relgene']==y]['adddescription'].values[0])

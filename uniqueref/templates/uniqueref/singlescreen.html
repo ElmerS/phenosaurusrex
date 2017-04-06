@@ -34,18 +34,11 @@
                 <td width="5%"></td>
             </tr>
         </table>
-
         <hr>
-	<input type="submit" value="Submit" /><br>
-        (Drawing a plot may take some time, please be patient after you have clicked submit)<br>
+        <input type="submit" value="Submit" />
         </form>
-	<table>
-	    <tr>
-                <td>{{error|safe}}{{the_script|safe}}{{the_div|safe}}<td>
-            </tr>
-	    <tr>
-                <td>{{data | safe}}</td>
-            </tr>
-	</table>
-
+	<p>
+	{{the_div|safe}}
+	{{the_script|safe}}
+    {{data|safe}}
 {% endblock %}
