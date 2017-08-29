@@ -104,6 +104,34 @@ class PSSDatapoint(models.Model):			# A model that holds each indiviual datapoin
 		verbose_name = 'Datapoint of a positive selection screen'
  		verbose_name_plural = 'datapoints of positive selection screens'
 
+class SLSDatapoint(models.Model):			# Holds the information of for all datapoints of Synthetic Lethal Screens
+	relscreen = models.ForeignKey(Screen)	# The screen it is associated with
+	relgene = models.ForeignKey(Gene) 	# The name of the associated gene for each datapoint
+	replicate = models.IntegerField() # Number of associated replicate
+	sense = models.IntegerField() # Number of sense mutations (non-normalized, non-zero corrected)
+	antisense = models.IntegerField() # Number of antisense mutations (non-normalized, non-zero corrected)
+	sense_normalized = models.IntegerField() # Number of sense mutations (normalized, non-zero corrected)
+	antisense_normalized = models.IntegerField() # Number of antisense mutations (normalized, non-zero corrected)
+	senseratio = models.FloatField()	# Sense ratio (corrected sense / corrected total) (on non-normalized counts, zero-corrected counts)
+	insertions = models.IntegerField()	# Total number of sense and antisense integrations (zero-corrected counts)
+	binom_fdr = models.FloatField() # Bionomial test sense vs. antisense, FDR Corrected
+	pv_control_1 = models.FloatField() # Fisher Exact test against control 1, non-FDR Corrected
+	pv_control_2 = models.FloatField() # Fisher Exact test against control 2, non-FDR Corrected
+	pv_control_3 = models.FloatField()	# Fisher Exact test against control 3, non-FDR Corrected
+	pv_control_4 = models.FloatField()	# Fisher Exact test against control 4, non-FDR Corrected
+	fcpv_control_1 = models.FloatField() # Fisher Exact test against control 1, FDR Corrected
+	fcpv_control_2 = models.FloatField() # Fisher Exact test against control 2, FDR Corrected
+	fcpv_control_3 = models.FloatField()	# Fisher Exact test against control 3, FDR Corrected
+	fcpv_control_4 = models.FloatField()	# Fisher Exact test against control 4, FDR Corrected
+	objects = DataFrameManager()	# Needed for Django Pandas
+
+	def __str__(self):
+		return force_bytes('%s' % (self.replicate))	# Return name of related gene
+
+	class Meta:
+		verbose_name = 'Datapoint of a Synthetic Lethal selection screen'
+ 		verbose_name_plural = 'datapoints of synthetic lethal screens'
+
 
 class IPSDatapoint(models.Model):			# A model that holds each indiviual datapoint for intracellular phenotype screens
 	relscreen = models.ForeignKey(Screen)
@@ -189,3 +217,14 @@ class CustomVariables(models.Model):
 	class Meta:
 		verbose_name = 'custom variable'
 		verbose_name_plural = 'custom variables'
+
+class Settings(models.Model):
+	variable_name = models.CharField(max_length=50)
+	value = models.TextField()
+	comment = models.TextField()
+	def __str__(self):
+		return force_bytes('%s: %s' % (self.variable_name, self.value))
+
+	class Meta:
+		verbose_name = 'Manual setting entry'
+		verbose_name_plural = 'Settings for Phenosaurus'

@@ -1,5 +1,7 @@
 # Import Django related libraries and functions
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.utils.translation import ugettext_lazy as _
 from django_pandas.io import read_frame
 from django.shortcuts import render
 from django.forms import ModelForm
@@ -15,6 +17,8 @@ import custom_functions as cf
 import pandas as pd
 import numpy as np
 import re
+from dal import autocomplete
+
 
 # Different textsizes for labeling the genes, there should be a more sophisticated way, right?
 textsize = (
@@ -64,6 +68,19 @@ plot_widths = (
 	('dynamic', "".join(['dynamic: ', str(gv.dynamic_geneplot_width), ' px', ' * n screens']))
 )
 
+
+
+class BootstrapAuthenticationForm(AuthenticationForm):
+    """Authentication form which uses boostrap CSS."""
+    username = forms.CharField(max_length=254,
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder': 'User name'}))
+    password = forms.CharField(label=_("Password"),
+                               widget=forms.PasswordInput({
+                                   'class': 'form-control',
+                                   'placeholder':'Password'}))
+
 class FixedScreenSummaryForm(forms.Form):
         def __init__(self, *args, **kwargs):
                 compound_input = kwargs.pop('compound_input')
@@ -73,7 +90,7 @@ class FixedScreenSummaryForm(forms.Form):
                 super(FixedScreenSummaryForm, self).__init__(*args, **kwargs)
                 self.fields['screen'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='IP').order_by('name')
 
-        screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Choose screen')
+        screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Choose screen', widget=forms.Select(attrs={'class': 'form-control'}))
 
 class SingleIPSPlotForm(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -85,13 +102,13 @@ class SingleIPSPlotForm(forms.Form):
 		self.fields['screen'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='IP').order_by('name')
 		self.fields['customgenelistid'].queryset = db.CustomTracks.objects.filter(Q(user__username=gv.publicuser) | Q(user__username=user)).order_by('name')
 
-	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Choose screen')
-	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '5'}), label='Select track(s) to color the datapoints', required=False)
+	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Choose screen', widget=forms.Select(attrs={'class': 'form-control'}))
+	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15', 'class': 'form-control'}), label='Select track(s) to color the datapoints', required=False)
 
-        pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
-	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px')
-	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc')
-	sag = forms.BooleanField(required=False, label='Label all significant hits')
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
+	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
+	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
+	sag = forms.BooleanField(initial=True, label='Label all significant hits')
 	showtable = forms.BooleanField(required=False, label="List all significant genes in table")
 	highlightpps = forms.BooleanField(required=False, label="Encircle hits founds in positive selection screens")
 	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
@@ -103,17 +120,17 @@ class UniqueHitFinderForm(forms.Form):
 		self.fields['screen'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='IP').order_by('name')
 		self.fields['againstscreen'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='IP').order_by('name')
 
-	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Select screen A')
-	againstscreen = forms.ModelMultipleChoiceField(queryset=db.Screen.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15'}), label='Select screens [B...Z]')
+	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Select screen A', widget=forms.Select(attrs={'class': 'form-control'}))
+	againstscreen = forms.ModelMultipleChoiceField(queryset=db.Screen.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15', 'class': 'form-control'}), label='Select screens [B...Z]')
 
-	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc')
-	comparison = forms.ChoiceField(label='Choose comparison', choices=comparison_choices, initial='unique')
+	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
+	comparison = forms.ChoiceField(label='Choose comparison', choices=comparison_choices, initial='unique', widget=forms.Select(attrs={'class': 'form-control'}))
 	showtable = forms.BooleanField(required=False, label="List all significant genes in table")
-	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
-	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px')
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
 	sag = forms.BooleanField(required=False, label='Label all significant hits')
-	highlightpps = forms.BooleanField(required=False, label="Encircle hits founds in positivepvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1})) selection screens")
-	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
+	highlightpps = forms.BooleanField(required=False, label="Encircle hits founds in positive selection screens")
+	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
 class OpenGeneFinderForm(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -124,18 +141,18 @@ class OpenGeneFinderForm(forms.Form):
 		self.fields['screens'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='IP').order_by('name')
 		self.fields['customgenelistid'].queryset = db.CustomTracks.objects.filter(Q(user__username=gv.publicuser) | Q(user__username=user)).order_by('name')
 
-	screens = forms.ModelMultipleChoiceField(queryset=db.Screen.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15'}), label="Select screen(s)")
-	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '5'}), label='and/or select a track ', required=False)
+	screens = forms.ModelMultipleChoiceField(queryset=db.Screen.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15', 'class': 'form-control'}), label='Select screen(s)', required=False)
+	customgenelistid = forms.ModelChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}), label='and/or select a track', required=False)
 
-	cb = forms.ChoiceField(label='Color datapoints by', choices=cbo, initial='cbpv')
+	cb = forms.ChoiceField(label='Color datapoints by', choices=cbo, initial='cbpv', widget=forms.Select(attrs={'class': 'form-control'}))
 	pgh = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), label="Separate plots for each gene")
-	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc')
-	genes = forms.CharField(widget=forms.TextInput(attrs={'size': '160'}), label='Enter genename(s), space separated', required=False)
-	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
-	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px')
+	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
+	genes = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'EZH2 SUZ12 EED', 'style':'min-width: 100%'}), label='Enter genename(s), space separated', required=False)
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
 	highlightpss = forms.BooleanField(required=False, label="Indicate if found in positive selection screens")
-	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1})) 
-	plot_width = forms.ChoiceField(label='Plot width', choices=plot_widths, initial='normal')
+	pvaluepss = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	plot_width = forms.ChoiceField(label='Plot width', choices=plot_widths, initial='normal', widget=forms.Select(attrs={'class': 'form-control'}))
 
 class SinglePSSBubblePlot(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -143,19 +160,19 @@ class SinglePSSBubblePlot(forms.Form):
 		super(SinglePSSBubblePlot, self).__init__(*args, **kwargs)
 		self.fields['screen'].queryset = db.Screen.objects.filter(id__in=authorized_screens).filter(screentype='PS').order_by('name')
 
-	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label="Choose screen")
-	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
+	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label="Choose screen", widget=forms.Select(attrs={'class': 'form-control'}))
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
 	sepcolor = forms.BooleanField(required=False, label="Indivual colors for significant hits (disable J.S. mode)")
-	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc')
-	scaling = forms.ChoiceField(label='Y-scaling', choices=so, initial='lin')
-	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px')
+	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
+	scaling = forms.ChoiceField(label='Y-scaling', choices=so, initial='lin', widget=forms.Select(attrs={'class': 'form-control'}))
+	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
 	sag = forms.BooleanField(required=False, label="Label all significant hits")
 	showtable = forms.BooleanField(required=False, label="List all significant genes in table")
 
 class UploadCustomTrack(ModelForm):
-	genelist = forms.CharField(validators=[cf.validate_track_genelist], widget=forms.Textarea(attrs={'rows': 60, 'cols': 180}), label="List of genes, space separated")
-	description = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 180}), label="A description for this track, max 400 characters")
-	name = forms.CharField(validators=[cf.validate_track_name], label="Name for new track, max 100 characters")
+	genelist = forms.CharField(validators=[cf.validate_track_genelist], widget=forms.Textarea(attrs={'rows': 20, 'class': 'form-control', 'placeholder':'EZH2 SUZ12 EED', 'style':'min-width: 100%'}), label="List of genes, space separated")
+	description = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder':'Polycomb repressive complex 2', 'style':'min-width: 100%'}), label="A description for this track, max 400 characters")
+	name = forms.CharField(validators=[cf.validate_track_name], label="Name for new track, max 100 characters", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'PRC2'}))
 	class Meta:
 		model = db.CustomTracks
 		exclude = ('user',)
@@ -171,4 +188,5 @@ class GetCustomTracks(forms.Form):
 		super(GetCustomTracks, self).__init__(*args, **kwargs)
 		self.fields['customgenelistid'].queryset = db.CustomTracks.objects.filter(user__username=user).order_by('name')
 
-	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15'}), label='Select one or more tracks to delete ')
+	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '10', 'class': 'form-control'}), label='Select one or more tracks to delete ')
+

@@ -3,9 +3,8 @@ Definition of urls for DjangoWebProject.
 """
 from datetime import datetime
 from django.conf.urls import url, handler400, handler403, handler404, handler500
-from app.forms import BootstrapAuthenticationForm
-import app.views as aviews
-import uniqueref.views as pviews
+from uniqueref.forms import BootstrapAuthenticationForm
+import uniqueref.views as aviews
 from django.contrib.auth import views
 
 # Serve static files during development
@@ -18,30 +17,31 @@ from django.conf.urls import include
 from django.contrib import admin
 admin.autodiscover()
 
-handler400 = 'app.views.bad_request'
-handler403 = 'app.views.permission_denied'
-handler404 = 'app.views.page_not_found'
-handler500 = 'app.views.server_error'
+admin.site.site_header = 'Phenosaurus management tool'
 
+handler400 = 'uniqueref.views.bad_request'
+handler403 = 'uniqueref.views.permission_denied'
+handler404 = 'uniqueref.views.page_not_found'
+handler500 = 'uniqueref.views.server_error'
 
 urlpatterns = [
     # Account editing form
     url(r'^edit_account/$', aviews.edit_account, name='edit_account'),
     # Custom change password and reset forms
     url(r'^password_change/$', views.password_change,
-	{'template_name': 'app/password_change_form.html'}),
+	{'template_name': 'uniqueref/account/password_change_form.html'}),
     url(r'^password_change/done/$', views.password_change_done,
-	{'template_name': 'app/password_change_done.html'}),
+	{'template_name': 'uniqueref/account/password_change_done.html'}),
     url(r'^password_reset/$', views.password_reset,
-	{'template_name': 'app/password_reset_form.html',
-	'email_template_name': 'app/password_reset_email.html',
-	'subject_template_name': 'app/password_reset_subject.txt'}),
+	{'template_name': 'uniqueref/account/password_reset_form.html',
+	'email_template_name': 'uniqueref/account/password_reset_email.html',
+	'subject_template_name': 'uniqueref/account/password_reset_subject.txt'}),
     url(r'^password_reset/done/$', views.password_reset_done,
-	{'template_name': 'app/password_reset_done.html'}),
+	{'template_name': 'uniqueref/account/password_reset_done.html'}),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.password_reset_confirm,
-	{'template_name': 'app/password_reset_confirm.html'}),
+	{'template_name': 'uniqueref/account/password_reset_confirm.html'}),
     url(r'^reset/done/$', views.password_reset_complete,
-	{'template_name': 'app/password_reset_complete.html'}),
+	{'template_name': 'uniqueref/account/password_reset_complete.html'}),
 
     # Landing page
     url(r'^$', aviews.home, name='home'),
@@ -52,7 +52,7 @@ urlpatterns = [
     url(r'^login/$',
         views.login,
         {
-            'template_name': 'app/login.html',
+            'template_name': 'uniqueref/account/login.html',
             'authentication_form': BootstrapAuthenticationForm,
             'extra_context':
             {

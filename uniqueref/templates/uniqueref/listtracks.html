@@ -1,12 +1,10 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}List Custom Tracks{% endblock %}
-{% block base_content %}
-    <table>
-        <tr>
-            <td><h1>Custom Tracks</h1></tr>
-        </tr>
-        <tr>
-            <td>{{data| safe}}</td>
-        </tr>   
-    </table>
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Custom Tracks{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="table-responsive">
+    <h1>List of publicly available tracks and private tracks</h1>
+    <td>{{data| safe}}</td>
+    </div>
+</div>
 {% endblock %}

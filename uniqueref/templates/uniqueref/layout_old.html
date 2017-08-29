@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+{% load google_analytics %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - PhenosaurusREX</title>
+    {% load staticfiles %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bootstrap.min.css' %}" />
+
+    <!-- Custom CSS for the template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bootstrap_customizations.css' %}" />
+
+   	<!-- CSS for bokeh -->
+	<link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bokeh-latest.min.css' %} " />
+	<link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bokeh-widgets-latest.min.css' %} " />
+
+    <!-- Scripts for the template -->
+    <script src="{% static 'uniqueref/scripts/modernizr-2.6.2.js' %}"></script>
+    <script src="{% static 'uniqueref/scripts/jquery-latest.min.js' %}"></script>
+    <script src="{% static 'uniqueref/scripts/bootstrap.min.js' %}"></script>
+    <script src="{% static 'uniqueref/scripts/respond.min.js' %}"></script>
+
+	<!-- Scripts for Bokeh -->
+	<script type="text/javascript" src="{% static 'uniqueref/scripts/bokeh-latest.min.js' %}" ></script>
+	<script type="text/javascript" src="{% static 'uniqueref/scripts/bokeh-widgets-latest.min.js' %}" ></script>
+
+	<!-- The favicon -->
+	<link rel="shortcut icon" href="{% static 'favicon.png' %}"/>
+
+{% google_analytics %}
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">PhenosaurusREX</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                    <li>
+                        <div class="dropdown">
+                        <a class="dropdown-toggle navbar-inverse" data-toggle="dropdown" href="#" aria-expanded="false">Analyze Experiment<span class="caret"></span></a>
+                        <ul class="dropdown-menu multi-level" role="menu">
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Molecular Phenotypes</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href='/uniqueref/fixedscreensummary'><span>Screen Summary</span></a></li>
+								    <li><a href='/uniqueref/simpleplot'><span>Fishtail plot</span></a></li>
+								    <li><a href='/uniqueref/uniquefinder'><span>UniqueFinder</span></a></li>
+								    <li><a href='/uniqueref/opengenefinder'><span>Gene Search</span></a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Synthetic Lethality</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href='/uniqueref/fixedscreensummary'><span>Visualize screen</span></a></li>
+                                    <li><a href='/uniqueref/fixedscreensummary'><span>Visualize replicate</span></a></li>
+                                </ul>
+                            </li>
+                            <li><a href='/uniqueref/pssbubbleplot'><span>Positive Selection</span></a></li>
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                        <a class="dropdown-toggle navbar-inverse" data-toggle="dropdown" href="#" aria-expanded="false">Data Sources<span class="caret"></span></a>
+                            <ul class="dropdown-menu multi-level" role="menu">
+                                <li><a href='/uniqueref/listscreens'><span>List all screens</span></a></li>
+                                <li><a href='/uniqueref/listgenes'><span style="white-space:nowrap">List all Genes</span></a></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Tracks</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href='/uniqueref/listtracks'><span>List tracks</span></a></li>
+                                        <li><a href='/uniqueref/uploadtrack'><span>Upload new track</span></a></li>
+                                        <li><a href='/uniqueref/deletetrack'><span>Delete track</span></a></li>
+                                    </ul>
+                                </li>
+
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                        <a class="dropdown-toggle navbar-inverse" data-toggle="dropdown" href="#" aria-expanded="false">Help<span class="caret"></span></a>
+                        <ul class="dropdown-menu multi-level" role="menu">
+                            <li><a href='/uniqueref/fixedscreensummary'><span>Documentation</span></a></li>
+	        		        <li><a href='/uniqueref/simpleplot'><span>Update History</span></a></li>
+                        </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+	            </ul>
+                {% include 'app/loginpartial.html' %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="container">
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - Elmer Stickel, Brummelkamp Lab, Netherlands Cancer Institute</p>
+        </footer>
+    </div>
+
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

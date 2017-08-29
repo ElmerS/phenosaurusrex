@@ -1,46 +1,62 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}BubblePlot for Positive Selection Screen{% endblock %}
-{% block base_content %}
-    <form action="/uniqueref/pssbubbleplot/" method="get">
-		{% csrf_token %}
-		<h1> BubblePlot for Positive Selection Screen </h1>
-		<table>
-            <tr>
-                <td width="15%"></td>
-                <td width="15%">Select Screen</td>
-                <td width="15%">{{ filter.pvalue.label_tag }}</td>
-                <td width="15%">{{ filter.sepcolor.label_tag }}</td>
-                <td width="15%">{{ filter.scaling.label_tag }}</td>
-                <td width="15%">{{ filter.oca.label_tag }}</td>
-                <td width="15%">{{ filter.sag.label_tag }}</td>
-                <td width="15%">{{ filter.textsize.label_tag }}</td>
-                <td width="15%">{{ filter.showtable.label_tag }}</td>
-                <td width="10%"></td>
-                <td>
-            </tr>
-            <tr>
-                <td width="15%"></td>
-                <td width="15%">{{ filter.screen }}</td>
-                <td width="15%">{{ filter.pvalue }}</td>
-                <td width="15%">{{ filter.sepcolor }}</td>
-                <td width="15%">{{ filter.scaling }}</td>
-                <td width="15%">{{ filter.oca }}</td>
-                <td width="15%">{{ filter.sag }}</td>
-                <td width="15%">{{ filter.textsize }}</td>
-                <td width="15%">{{ filter.showtable }}</td>
-                <td width="10%"></td>
-            </tr>
-        </table>
-        <input type="submit" value="Submit" />
-        </form>
-	<p>
-	{{the_div|safe}}
-	{{the_script|safe}}
-    <table>
-        <tr>
-            <td width="15%"></td>
-            <td width="70%">{{data | safe}}</td>
-            <td width="15%"></td>
-        </tr>
-    </table>
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Positive Selection Screen{% endblock %}
+{% block content %}
+<h1>Fishtail plot</h1>
+{% if data != None %}
+    <h4 style="color:#b30000">{{ data|safe }}</h4>
+{% endif %}
+<form action="/uniqueref/pssbubbleplot/" method="get">
+    {% csrf_token %}
+<div class="panel-group">
+ <div class="panel panel-default">
+     <div class="panel-body">
+         <div class="form-group">
+             <div class="col-sm-6">
+                 {{ filter.screen.label_tag }}
+                 {{ filter.screen }}
+             </div>
+             <div class="col-sm-6">
+                 {{ filter.oca.label_tag }}
+                 {{ filter.oca }}
+             </div>
+         </div>
+     </div>
+ </div>
+ <div class="panel panel-default">
+  <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Advanced options</a></h4></div>
+   <div id="collapse1" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-sm-6">
+                {{ filter.pvalue.label_tag }}<br>
+                {{ filter.pvalue }}<br>
+                {{ filter.sepcolor.label_tag }}<br>
+                {{ filter.sepcolor }}<br>
+                {{ filter.scaling.label_tag }}<br>
+                {{ filter.scaling }}
+            </div>
+            <div class="col-sm-6">
+                {{ filter.sag.label_tag }}<br>
+                {{ filter.sag }}<br>
+                {{ filter.textsize.label_tag }}<br>
+                {{ filter.textsize }}<br>
+                {{ filter.showtable.label_tag }}<br>
+                {{ filter.showtable }}
+            </div>
+        </div>
+    </div>
+   </div>
+ </div>
+ <div class="panel panel-default">
+    <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+ </div>
+</div>
+</form>
+
+{% if the_script != None %}
+<div class="col-sm-12">
+    {{the_script|safe}} {{the_div|safe}}
+</div>
+{% endif %}
 {% endblock %}

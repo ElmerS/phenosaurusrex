@@ -1,0 +1,99 @@
+"""
+Definition of views.
+"""
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, render_to_response
+from django.http import HttpRequest
+from django.template import RequestContext
+from datetime import datetime
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+def home(request):
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/index.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        })
+    )
+
+def contact(request):
+    """Renders the contact page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/contact.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Contact',
+            'message':'Brummelkamp Lab',
+            'year':datetime.now().year,
+        })
+    )
+
+def about(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/about.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'About',
+            'message':'Genescope.org: an interactive platform for visualization and analysis of haploid screens',
+	    'descr':'<p>The Phenosaurus platform is under active development of the Brummelkamp group in the Netherlands Cancer Institute</p><p>Lead developer: Elmer Stickel <a href="mailto:e.stickel@nki.nl">e.stickel@nki.nl</a></p><p>People involved in the development of the platform: Vincent Blomen</p><p>We are here to help you with any support aspect of Phenocape, feel free to contact us by email. If you would like to obtain access to the platform or upload your own data, please contact us.</p>',
+            'year':datetime.now().year,
+        })
+    )
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            #return redirect('accounts:change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'app/password_change.html', {
+        'form': form
+    })
+
+@login_required
+def edit_account(request):
+   return render(request, 'app/edit_account.html', {})
+
+def bad_request(request):
+    response = render_to_response('app/400.html', {},
+                                  context_instance=RequestContext(request, {'year': datetime.now().year}))
+    response.status_code = 400
+    return response
+
+def permission_denied(request):
+    response = render_to_response('app/403.html', {},
+                                  context_instance=RequestContext(request, {'year': datetime.now().year}))
+    response.status_code = 403
+    return response
+
+def page_not_found(request):
+    response = render_to_response('app/404.html', {},
+                                  context_instance=RequestContext(request, {'year': datetime.now().year}))
+    response.status_code = 404
+    return response
+
+def server_error(request):
+    response = render_to_response('app/500.html', {},
+                                  context_instance=RequestContext(request, {'year': datetime.now().year}))
+    response.status_code = 500
+    return response

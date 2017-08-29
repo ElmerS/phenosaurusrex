@@ -34,16 +34,6 @@ class IPSDatapointResource(resources.ModelResource):
 			'mi',
 		)
 
-class IPSDatapointAdmin(ImportExportModelAdmin):
-	def get_relgene(self, obj):
-		return obj.relgene.name
-	def get_relscreen(self, obj):
-		return obj.relscreen.name
-	get_relgene.short_description = 'Gene'
-	get_relscreen.short_description = 'Associated Screen'
-	resource_class = IPSDatapointResource
-	list_display = ('id', 'get_relscreen', 'mi', 'fcpv', 'get_relgene')
-    	pass
 
 # class PSSDatapointResource to define that data can imported into class PSSDatapoint using import_export
 class PSSDatapointResource(resources.ModelResource):
@@ -72,17 +62,36 @@ class PSSDatapointResource(resources.ModelResource):
 			  'seq',
 		  )
 
-class PSSDatapointAdmin(ImportExportModelAdmin):
-	def get_relgene(self, obj):
-		return obj.relgene.name
-	def get_relscreen(self, obj):
-		return obj.relscreen.name
-	get_relgene.short_description = 'Gene'
-	get_relscreen.short_description = 'Associated Screen'
-	resource_class = PSSDatapointResource
-	list_display = ('id', 'get_relscreen', 'fcpv', 'get_relgene')
-    	pass
+# class SLSDatapointResource to define that data can imported into class SLSDatapoint using import_export
+class SLSDatapointResource(resources.ModelResource):
+	pass_relscreen = fields.Field(column_name='relscreenname', attribute='relscreen',
+								  widget=ForeignKeyWidget(Screen, 'name'))
+	pass_relgene = fields.Field(column_name='relgenename', attribute='relgene', widget=ForeignKeyWidget(Gene, 'name'))
 
+	class Meta:
+		model = SLSDatapoint  # Must be put into the class Datapoint (from oldref.model)
+		skip_unchanged = True  # Skip if already exists
+		report_skipped = True  # Perhaps this better be True?
+		fields = ('id',
+				  'pass_relscreen',  # Link to correct screen
+				  'pass_relgene',  # Link to correct gene
+				  'replicate',
+				  'sense',
+				  'antisense',
+				  'sense_normalized',
+				  'antisense_normalized',
+				  'insertions',
+				  'senseratio',
+				  'binom_fdr',
+				  'pv_control_1',
+				  'pv_control_2',
+				  'pv_control_3',
+				  'pv_control_4',
+				  'fcpv_control_1',
+				  'fcpv_control_2',
+				  'fcpv_control_3',
+				  'fcpv_control_4',
+				  )
 
 class SeqSummaryResource(resources.ModelResource):
 	pass_relscreen = fields.Field(column_name='relscreenname', attribute='relscreen',
@@ -110,6 +119,45 @@ class SeqSummaryResource(resources.ModelResource):
 				  'low_totaluniquereads'
 				  )
 
+class IPSDatapointAdmin(ImportExportModelAdmin):
+
+	def get_relgene(self, obj):
+		return obj.relgene.name
+	def get_relscreen(self, obj):
+		return obj.relscreen.name
+	get_relgene.short_description = 'Gene'
+	get_relscreen.short_description = 'Associated Screen'
+	resource_class = IPSDatapointResource
+	list_display = ('id', 'get_relscreen', 'mi', 'fcpv', 'get_relgene')
+	pass
+
+
+class PSSDatapointAdmin(ImportExportModelAdmin):
+	def get_relgene(self, obj):
+		return obj.relgene.name
+	def get_relscreen(self, obj):
+		return obj.relscreen.name
+	get_relgene.short_description = 'Gene'
+	get_relscreen.short_description = 'Associated Screen'
+	resource_class = PSSDatapointResource
+	list_display = ('id', 'get_relscreen', 'fcpv', 'get_relgene')
+	pass
+
+
+class SLSDatapointAdmin(ImportExportModelAdmin):
+	def get_relgene(self, obj):
+		return obj.relgene.name
+
+	def get_relscreen(self, obj):
+		return obj.relscreen.name
+
+	get_relgene.short_description = 'Gene'
+	get_relscreen.short_description = 'Associated Screen'
+	resource_class = SLSDatapointResource
+	list_display = ('get_relscreen', 'replicate', 'get_relgene', 'senseratio', 'binom_fdr')
+	pass
+
+
 class SeqSummaryAdmin(ImportExportModelAdmin):
 	def get_relscreen(self, obj):
 		return obj.relscreen.name
@@ -120,7 +168,7 @@ class SeqSummaryAdmin(ImportExportModelAdmin):
 	pass
 
 
-# calss GeneResoruce to define that data can be imported into class Gene using import_export
+# calls GeneResoruce to define that data can be imported into class Gene using import_export
 class GeneResource(resources.ModelResource):
 	
 	class Meta:
@@ -182,11 +230,16 @@ class CustomTrackAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
 	inlines = (ScreenPermissionsInline,)
 
+class SettingsAdmin(admin.ModelAdmin):
+	list_display = ('variable_name', 'value', 'comment')
+
 admin.site.register(Screen, ScreenAdmin)	
 admin.site.register(Gene, GeneAdmin)
 admin.site.register(IPSDatapoint, IPSDatapointAdmin)
 admin.site.register(PSSDatapoint, PSSDatapointAdmin)
+admin.site.register(SLSDatapoint, SLSDatapointAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Settings, SettingsAdmin)
 admin.site.register(CustomTracks, CustomTrackAdmin)
 admin.site.unregister(Group) # To disable the standard form for modifying groups
 admin.site.register(Group, GroupAdmin)

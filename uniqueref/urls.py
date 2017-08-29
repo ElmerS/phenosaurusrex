@@ -3,7 +3,9 @@ import django.contrib.auth.views
 from .views import *
 
 urlpatterns = [
-	url(r'^$', landing, name='landing'),
+    url(r'^syntheticlethal/', SyntheticLethalView, name='syntheticlethal'),
+	url(r'^$', home, name='home'),
+	url(r'^$', userlanding, name='landing'),
 	url(r'^fixedscreensummary/', FixedScreenSummary, name='Screen Summary'),
 	url(r'^fixedscreenseqsummary/', FixedScreenSeqSummary, name='Summary of Sequence Statistics Fixed Screen'),
 	url(r'^simpleplot/', IPSFishtail, name='Single Intracellular Fixed Screen'),

@@ -1,69 +1,75 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
+{% extends 'uniqueref/layout.html' %}
 {% block title %}Gene Finder{% endblock %}
-{% block base_content %}
-    <h1> Gene Finder </h1>
-    <form action="/uniqueref/opengenefinder/" method="get">
-		<hr>
-		<table>
-		    <tr>
-		        <td rowspan="9",width="10%"></td>
-		        <td width="15%">Select screen(s)</td>
-                <td colspan="2",width="50%">{{ filter.genes.label_tag }}</td>
-                <td width="15%">{{ filter.customgenelistid.label_tag }}</td>
-                <td rowspan="9",width="10%"></td>
-            </tr>
-            <tr>
-                <td width="15%", rowspan="8">{{ filter.screens }}</div></div></td>
-                <td colspan="2",width="65%">{{ filter.genes }}<p></td>
-                <td width="15%">{{ filter.customgenelistid }}<p></td>
-            </tr>
-            <tr>
-                <td width="15%">{{ filter.pgh.label_tag }} </td>
-                <td width="15%">{{ filter.highlightpss.label_tag }}</td>
-                <td width="15%" style="border-top: 1px solid #cdd0d4; border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4" align="center"><i><u>The following options only apply if not drawing separate gene plots</u><br></i></td>
-            </tr>
-            <tr>
-                <td width="15%">{{ filter.pgh }}</td>
-                <td width="15%">{{ filter.highlightpss }}</td>
-                <td width="15%" style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4">{{ filter.oca.label_tag }}</td>
+{% block content %}
+<h1>Gene Finder</h1>
+{% if error != None %}
+    <h4 style="color:#b30000">{{ error|safe }}</h4>
+{% endif %}
+<form action="/uniqueref/opengenefinder/" method="get">
+    {% csrf_token %}
+<div class="panel-group">
+ <div class="panel panel-default">
+     <div class="panel-body">
+         <div class="form-group row">
+             <div class="col-xs-12 col-md-8">
+                 {{ filter.genes.label_tag }}
+                 {{ filter.genes }}
+             </div>
+             <div class="col-xs-12 col-md-4">
+                 {{ filter.customgenelistid.label_tag }}
+                 {{ filter.customgenelistid }}
+             </div>
+         </div>
+     </div>
+ </div>
+ <div class="panel panel-default">
+  <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Advanced options</a></h4></div>
+   <div id="collapse1" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                {{ filter.screens.label_tag }}
+                {{ filter.screens }}
+            </div>
+            <div class="col-sm-4">
+                {{ filter.pvalue.label_tag }}<br>
+                {{ filter.pvalue }}<br>
+                {{ filter.plot_width.label_tag }}<br>
+                {{ filter.plot_width }}<br>
+                {{ filter.highlightpss.label_tag }}<br>
+                {{ filter.highlightpss }}<br>
+                {{ filter.pvaluepss.label_tag }}<br>
+                {{ filter.pvaluepss }}<br>
+            </div>
+            <div class="col-sm-4">
+                {{ filter.pgh.label_tag }}<br>
+                {{ filter.pgh }}<p>
+                The following options only apply if not drawing separate gene plots<br>
+                {{ filter.oca.label_tag }}<br>
+                {{ filter.oca }}<br>
+                {{ filter.cb.label_tag }}<br>
+                {{ filter.cb }}<br>
+                {{ filter.textsize.label_tag }}<br>
+                {{ filter.textsize }}
+                </p>
+            </div>
+        </div>
+    </div>
+   </div>
+ </div>
+ <div class="panel panel-default">
+    <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+ </div>
+</div>
+</form>
 
-            </tr>
-            <tr>
-                <td width="15%">{{ filter.pvalue.label_tag }} (Default = 0.05)</td>
-                <td width="15%">{{ filter.pvaluepss.label_tag }} (Default = 0.05)</td>
-                <td width="15%" style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4">{{ filter.oca }}</td>
-
-            </tr>
-                <td width="15%">{{ filter.pvalue }}</td>
-                <td width="15%">{{ filter.pvaluepss }}</td>
-                <td width="15%" style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4">{{ filter.cb.label_tag }}</td>
-            </tr>
-            <tr>
-                <td width="15%"></td>
-                <td width="15%"></td>
-                <td width="15"style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4">{{ filter.cb }}</td>
-            </tr>
-            <tr>
-                 <td width="15%">{{ filter.plot_width.label_tag }}</td>
-                 <td width="15%"></td>
-                 <td width="15%"style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4">{{ filter.textsize.label_tag }}</td>
-             </tr>
-             <tr>
-                <td width="15%"> {{ filter.plot_width }} </td>
-                <td></td>
-                <td width="15%"style="border-right: 1px solid #cdd0d4; border-left: 1px solid #cdd0d4; border-bottom: 1px solid #cdd0d4">{{ filter.textsize }}</td>
-            </tr>
-        </table>
-        <hr>
-        <input type="submit" value="Submit" />
-        </form>
-    <table>
-        <tr>
-            <td>{{error|safe}}{{the_script|safe}}{{the_div|safe}}<td>
-        </tr>
-        <tr>
-            <td>{{data | safe}}</td>
-        </tr>
-    </table>
+{% if the_script != None %}
+<div class="row">
+    <div class="col-md-12">
+        {{the_script|safe}} {{the_div|safe}}
+    </div>
+</div
+{% endif %}
 {% endblock %}
 

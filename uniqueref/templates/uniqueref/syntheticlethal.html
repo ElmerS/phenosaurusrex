@@ -1,0 +1,121 @@
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Synthetic Lethal Interaction Screens{% endblock %}
+{% block content %}
+<h1>Synthetic Lethality</h1>
+{% if error != None %}
+    <h4 style="color:#b30000">{{ error|safe }}</h4>
+{% endif %}
+
+{% if step == 1 %}
+<form action="/uniqueref/syntheticlethal/" method="get">
+    {% csrf_token %}
+    <div class="form-group row" text-center>
+        {{ filter.screenid }}
+    </div>
+<input type="submit" class="btn btn-default" value="Next" />
+
+
+{% elif step == 2 %}
+<form action="/uniqueref/syntheticlethal/" method="get">
+    {% csrf_token %}
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group row" text-center>
+                    {{ filter.screenid }}
+                    <div class="col-md-4">
+                        {{ filter.replicates.label_tag }}
+                        {{ filter.replicates }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ filter.analysis.label_tag }}
+                        {{ filter.analysis }}
+                        {% if filter.nocontrols %}
+                            {{ filter.nocontrols }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        {{ filter.oca.label_tag }}
+                        {{ filter.oca }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="analysis" href="#collapse1">Advanced options</a></h4></div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="form-group row" text-center>
+                        <div class="col-md-4">
+                            {{ filter.controls.label_tag }}<br>
+                            {% if filter.nocontrols %}
+                                {{ filter.nocontrols }}
+                            {% else %}
+                                {{ filter.controls }}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h4 class="panel-title">P-value cutoffs</h4></div>
+                                    <div class="panel-body">
+                                        <div class="form-group row" text-center>
+                                            {{ filter.binom_p_value.label_tag }}<br>
+                                            {{ filter.binom_p_value }}<br>
+                                            {{ filter.fisher_p_value.label_tag }}<br>
+                                            {{ filter.fisher_p_value }}
+                                            {{ filter.fisher_p_value.help_text }}<br><br>
+                                            {{ filter.fdr.label_tag }} {{ filter.fdr }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h4 class="panel-title">Effect size</h4></div>
+                                    <div class="panel-body">
+                                        <div class="form-group row" text-center>
+                                            {{ filter.effect_size.label_tag }}<br>
+                                            {{ filter.effect_size }}<br>
+                                            {{ filter.directionality.label_tag }} {{ filter.directionality }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" text-center>
+                        <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h4 class="panel-title">Label hits</h4></div>
+                                    <div class="panel-body">
+                                        <div class="form-group row" text-center>
+                                            {{ filter.customgenelist.label_tag }}<br>
+                                            {{ filter.customgenelist }}<br>
+                                            {{ filter.aas.label_tag }}
+                                            {{ filter.aas }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" /></div>
+        </div>
+    </div>
+</form>
+
+{% elif step == 3 %}
+    <div class="row">
+        {{script|safe}} {{div|safe}}
+    </div>
+
+{% endif %}
+
+{% endblock %}
+

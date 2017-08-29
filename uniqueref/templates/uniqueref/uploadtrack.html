@@ -1,33 +1,31 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}Single Screen Fishtail Plot{% endblock %}
-{% block base_content %}
-
-        <form method="POST">
-            <table>
-                <tr>
-                    <td>{{ form.errors }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.name.label_tag }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.name }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.description.label_tag }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.description }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.genelist.label_tag }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.genelist }}</td>
-                </tr>
-            </table>
-            {{data|safe}}<br>
-            {% csrf_token %} 
-            <input type="submit" value="Store track">
-        </form>
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Create track{% endblock %}
+{% block content %}
+{% if form != None %}
+<h1>Create a new track</h1>
+<form method="POST">
+  {% csrf_token %}
+  {% if data != "" %}
+    <div class="form-group">
+      <h3 style="color:#b30000;">{{data|safe}}</h3>
+      {{ form.errors }}
+    </div>
+  {% endif %}
+    <div class="form-group row">
+        <label>{{ form.name.label_tag }}</label>
+        {{ form.name }}
+    </div>
+    <div class="form-group row">
+        <label>{{ form.description.label_tag }}</label>
+        {{ form.description }}
+    </div>
+    <div class="form-group row">
+        <label>{{ form.genelist.label_tag }}</label>
+        {{ form.genelist }}
+    </div>
+    <input type="submit" class="btn btn-default" value="Store track">
+    </form>
+{% else %}
+<h3 style="color:#006622;">{{data|safe}}</h3>
+{% endif %}
 {% endblock %}

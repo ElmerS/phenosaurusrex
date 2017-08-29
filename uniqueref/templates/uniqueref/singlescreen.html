@@ -1,44 +1,64 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}Single Screen Fishtail Plot{% endblock %}
-{% block base_content %}
-    <form action="/uniqueref/simpleplot/" method="get">
-		{% csrf_token %}
-		<h1> Fishtail plot of single screen </h1>
-		<hr>
-		<table>
-            <tr>
-                <td width="5%"></td>
-                <td width="10%">Select Screen</td>
-                <td width="10%">{{ filter.oca.label_tag }}</td>
-                <td width="10%">{{ filter.textsize.label_tag }}</td>
-                <td width="10%">{{ filter.pvalue.label_tag }}</td>
-                <td width="10%">{{ filter.sag.label_tag }}</td>
-                <td width="10%">{{ filter.showtable.label_tag }}</td>
-                <td width="10%">{{ filter.highlightpps.label_tag }}</td>
-                <td width="10%">{{ filter.pvaluepps.label_tag }}</td>
-                <td with="10%">{{ filter.customgenelistid.label_tag}}</td>
-                <td width="5%"></td>
-                <td>
-            </tr>
-            <tr>
-                <td width="5%"></td>
-                <td width="10%">{{ filter.screen }}</td>    
-                <td width="10%">{{ filter.oca }}</td>
-                <td width="10%">{{ filter.textsize }}</td>
-                <td width="10%">{{ filter.pvalue }}</td>
-                <td width="10%">{{ filter.sag }}</td>
-                <td width="10%">{{ filter.showtable }}</td>
-                <td width="10%">{{ filter.highlightpps }}</td>
-                <td width="10%">{{ filter.pvaluepps }}</td>
-                <td with="10%">{{ filter.customgenelistid}}</td>
-                <td width="5%"></td>
-            </tr>
-        </table>
-        <hr>
-        <input type="submit" value="Submit" />
-        </form>
-	<p>
-	{{the_div|safe}}
-	{{the_script|safe}}
-    {{data|safe}}
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Gene Finder{% endblock %}
+{% block content %}
+<h1>Fishtail plot</h1>
+{% if data != None %}
+    <h4 style="color:#b30000">{{ data|safe }}</h4>
+{% endif %}
+<form action="/uniqueref/simpleplot/" method="get">
+    {% csrf_token %}
+<div class="panel-group">
+ <div class="panel panel-default">
+     <div class="panel-body">
+         <div class="form-group row">
+             <div class="col-xs-6">
+                 {{ filter.screen.label_tag }}
+                 {{ filter.screen }}
+             </div>
+             <div class="col-xs-6">
+                 {{ filter.oca.label_tag }}
+                 {{ filter.oca }}
+             </div>
+         </div>
+     </div>
+ </div>
+ <div class="panel panel-default">
+  <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Advanced options</a></h4></div>
+   <div id="collapse1" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="form-group row">
+            <div class="col-xs-6 ">
+                {{ filter.textsize.label_tag }}<br>
+                {{ filter.textsize }}<br>
+                {{ filter.pvalue.label_tag }}<br>
+                {{ filter.pvalue }}<br>
+                {{ filter.sag.label_tag }}<br>
+                {{ filter.sag}}<br>
+                {{ filter.showtable.label_tag }}<br>
+                {{ filter.showtable }}<br>
+                {{ filter.highlightpps.label_tag }}<br>
+                {{ filter.highlightpps }}<br>
+                {{ filter.pvaluepps.label_tag }}<br>
+                {{ filter.pvaluepps }}<br>
+
+            </div>
+            <div class="col-xs-6">
+                {{ filter.customgenelistid.label_tag }}<br>
+                {{ filter.customgenelistid }}<br>
+                </p>
+            </div>
+        </div>
+    </div>
+   </div>
+ </div>
+ <div class="panel panel-default">
+    <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+ </div>
+</div>
+</form>
+
+{% if the_script != None %}
+    {{the_script|safe}} {{the_div|safe}}
+{% endif %}
 {% endblock %}

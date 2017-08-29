@@ -4,7 +4,7 @@ from bokeh.models import HoverTool, TapTool, OpenURL, Circle, Text, CustomJS, Fi
 from bokeh.models.widgets import TableColumn, DataTable
 from bokeh.resources import CDN
 from bokeh.embed import components
-from bokeh.layouts import column, layout, Row, Spacer, gridplot
+from bokeh.layouts import column, row, layout, Row, Spacer, gridplot
 from bokeh.charts import Bar
 from bokeh.io import vplot, hplot, gridplot
 import pandas as pd
@@ -21,7 +21,7 @@ import custom_functions
 TOOLS = "resize,hover,save,pan,wheel_zoom,box_zoom,reset,tap"
 
 ##########################################################
-# 1. Fistail plots                                       #
+# 1. Fishtail plots                                       #
 ##########################################################
 
 def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.DataFrame(), df_arrow=pd.DataFrame(), setwidth=1000, setheight=700, legend_location="top_right", toolbar_location="below", customtools='full_set'):
@@ -126,7 +126,7 @@ def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.D
     )
     # When coloring the dots by track, create legend that tells which color is which track  
     if (not legend.empty):
-        legend = Legend(items=[(row[1], [p.circle(x=0, y=0, color=row[2])]) for row in legend.itertuples()],location=legend_location)
+        legend = Legend(items=[(r[1], [p.circle(x=0, y=0, color=r[2])]) for r in legend.itertuples()],location=legend_location)
         if (legend_location!='top_right'):
             p.add_layout(legend, 'right')
         else:
@@ -134,11 +134,13 @@ def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.D
 
     if (not df_arrow.empty):
         linesource = ColumnDataSource(df_arrow)
-        for row in df_arrow.itertuples():
-            p.line([row[3], row[4]], [row[1], row[2]], color=row[7], line_width=4)
+        for r in df_arrow.itertuples():
+            p.line([r[3], r[4]], [r[1], r[2]], color=r[7], line_width=4)
         p.text(x='loginsertions_x', y='logmi_x', text='relgene_x', color='black', text_font_size=textsize, source=linesource)
 
-    return p
+    r = row(children=[p], responsive=True)
+
+    return r
 
 ##########################################################
 # 2. Bubble plots for positive selection screens         #
@@ -171,7 +173,8 @@ def pbubbleplot(title, df, scaling, oca, sag, textsize, authorized_screens):
         webgl=True,
         x_axis_label = "Genes",
         y_axis_label = '-log(p)',
-        y_axis_type = yat
+        y_axis_type = yat,
+        toolbar_location = 'above',
     )
 
     p.xgrid.grid_line_color = None
@@ -246,13 +249,16 @@ def pbubbleplot(title, df, scaling, oca, sag, textsize, authorized_screens):
         nonselection_glyph=nonselected_circle
     )
 
-    return p
+    r = row(children=[p], responsive=True)
+    return r
 
 ##########################################################
 # 3. Single gene plots (genefinder histogram things)     #
 ##########################################################
 
 def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, plot_width):
+    # A limited set of tools
+    TOOLS = "resize,save,pan,wheel_zoom,box_zoom,reset"
     # The labels for the x-axis
     x_range = [str(x[0]) for x in custom_functions.authorized_qs_screen(authorized_screens).filter(id__in=screenids_array).order_by('name').values_list('name')]
     # Now we create a dictionary that uses the genenames to create variables. An sich this is a nice approach but because dictionaries are intrinsically unsorted, the plots will have an unsorted order in which they appear under each other
@@ -282,20 +288,21 @@ def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, p
             x_range=x_range,
             tools=[TOOLS],
             title=title,
-            min_border_left=100
+            min_border_left=65,
+            min_border_top=45,
+            toolbar_location='above',
+            sizing_mode = 'scale_both'
         )
         figures[y].circle('relscreen', 'logmi', color='color', alpha=1, source=source, size=10)
         figures[y].xaxis.major_label_orientation = pi/4
         plot_dict[y]=figures[y]
-    p = column(plot_dict.values())
     return(plot_dict.values())
 
 ##########################################################
 # 4. Veritical layout of geneplots          #
 ##########################################################
 def vertial_geneplots_layout(list_of_geneplot_objects):
-    return(layout(children=[[column(list_of_geneplot_objects, sizing_mode='fixed')]], sizing_mode='fixed'))
-
+    return(column(list_of_geneplot_objects, responsive=True))
 ##########################################################
 # 4. Plot a table
 ##########################################################
@@ -357,6 +364,7 @@ def create_plot_screen_summary(fishtail, uniquefinder, list_custom_plots, genepl
     summaryplot = layout(
         children=rows,
         sizing_mode='scale_width',
+        responsive=True
     )
 
     return summaryplot

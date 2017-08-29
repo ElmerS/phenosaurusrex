@@ -29,11 +29,19 @@ color_high_rr = '#400877' # Raw reads
 color_high_ur = '#9933ff' # Unique reads
 color_high_mr = '#874848' # Unique reads
 
+# The colors of the sense/antisense essentiality/synthetic lethal plots
+color_sl_ns = '#A9A9A9'	# Color Synthetic Lethal Non Significant
+color_sl_s = '#282828'	# Color Synthetic Lethal Significant
+
+binomplot_width = 1000
+binomplot_height = 700
+
 title_raw_reads_graph = 'Total number of sequence reads in low and high channel'
 title_unique_reads_graph = 'Total number of unique sequence reads and mapped reads in low and high channel'
 
 pss_highlight_color = '#8c1aff'
 
+full_toolset = "resize,hover,save,pan,wheel_zoom,box_zoom,reset,tap"
 
 standard_legend = pd.DataFrame([['pos. regulator', color_sb],['neg. regulator', color_st], ['not significant', color_ns]], columns=['desc', 'color'])
 
@@ -60,7 +68,7 @@ normal_geneplot_width = 1440
 wide_geneplot_width = 2120
 dynamic_geneplot_width = 30
 
-max_graphs = 50
+max_graphs = 100
 
 publicuser = 'public'
 
@@ -75,13 +83,13 @@ minimal_logmi_difference = 1.5
 coloroverlay_mi_error= 'Please select only 1 screen to compare against in the color-overlay and MI-arrows function'
 max_graphs_warning = 'Go draw your own plots, I am not drawing more than 50 plots on one page!'
 formerror = "<i>Please fill in all required fields of the form</i>"
-failed_track_upload = 'Failed to store your track, please check the input forms'
+failed_track_upload = 'Failed to store your track, please revise the following errors:'
 succes_track_upload = 'Your track was succesfully stored in the database!'
 gene_not_found_error = 'Could not find these genes in the database: '
 genome_browser_link_text = '(click on names to see them in the USCS genome browser)'
 suggested_genes_text = 'You might be looking for these gene(s): '
 delete_track_validation_succes = 'You successfully deleted the following tracks'
-delete_track_validation_error = 'You little bastard! It seems you trying to fool me by changing the URL and either trying the remove a track that had already been removed or trying to remove someone else track. Ill watch you!'
+delete_track_validation_error = 'No! No! No! It seems you trying to fool me by changing the URL and either trying the remove a track that had already been removed or trying to remove someone else track. Ill watch you!'
 compare_screen_against_itself_error = 'Some people say stupid questions do not exists. Well you just asked one. I refuse do go through a lot of calculations to find out that you are comparing a screen against itself. You do not need me to visualize the resulting plot'
 request_screen_authorization_error = 'OK well this is serious. YOU and I have a problem. It seems you have modified the URL to see data that is not yours. I dont like it at all. Instead of using a POST request I provide you with a GET request so you can easily bookmark, share and quickly modify your complex queries and this is what I get? Just don\'t. I have logged this mischievous attempt and your IP-address.'
 

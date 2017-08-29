@@ -1,92 +1,67 @@
-<!DOCTYPE html>
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}UniqueFinder{% endblock %}
-{% block base_content %}
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Uniquefinder{% endblock %}
+{% block content %}
+<h1>Compare screens</h1>
+{% if data != None %}
+    <h4 style="color:#b30000">{{ data|safe }}</h4>
+{% endif %}
 <form action="/uniqueref/uniquefinder/" method="get">
-{% csrf_token %}
-<h1> Find unique hits </h1>
-<hr>
-<table>
+    {% csrf_token %}
+<div class="panel-group">
+ <div class="panel panel-default">
+     <div class="panel-body">
+         <div class="form-group">
+             <div class="col-sm-6">
+                 {{ filter.screen.label_tag }}<br>
+                 {{ filter.screen }}
+             </div>
+             <div class="col-sm-6">
+                 {{ filter.oca.label_tag }}<br>
+                 {{ filter.oca }}
+             </div>
+             <div class="col-sm-4">
 
-    <tr>
-        <td width="10%", rowspan="22"></td>
-        <td width="10%">{{ filter.screen.label_tag }}</td>
-        <td width="10%">{{ filter.showtable.label_tag }}</td>
-        <td width="60%", rowspan="19", align="center", valign="center">{{the_div|safe}}{{the_script|safe}}{{error|safe}}</td>
-        <td width="10%", rowspan="22"></td>
-	<tr>
-        <td width="10%">{{ filter.screen }}</td>
-        <td width="10%">{{ filter.showtable }}</td>
-	</tr>
-	<tr>	
-        <td width="10%"> {{ filter.againstscreen.label_tag }}</td>
-        <td width="10%"></td>
-	<tr>
-		<td width="10%", rowspan='5'>{{ filter.againstscreen }}</td>
-        <td width="10%">{{ filter.highlightpps.label_tag }}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.highlightpps }}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.pvaluepps.label_tag }}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.pvaluepps }}</td>
-    </tr>
-    <tr>
-
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.oca.label_tag }}</td>
-        <td width="10%"></td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.oca }}</td>
-       <td width="10%"></td>
-        
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.comparison.label_tag }}</td>
-        <td rowspan="10", valign="top", width="10%", height="100%", align="left"></td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.comparison}}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.sag.label_tag}}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.sag}}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.textsize.label_tag }}</td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.textsize }}</td>
-    </tr>
-    <tr>
-        <td width="10%"></td>
-    </tr>
-    <tr>
-        <td width="10%"></td>
-    </tr>
-    <tr>
-        <td width="10%">{{ filter.pvalue.label_tag }}</td>
-    </tr>
-    <tr>
-        <td width="10%", valign="top">{{ filter.pvalue }}</td>
-        <td width="60%", rowspan="2">
-
-        </td>
-    </tr>
-    <tr>
-        <td valign="top", colspan="2", width="20%"><input type="submit" value="Submit" /></td>
-    </tr>
-    <tr>
-        <td colspan="3", width="75%">{{data|safe}}</td>
-    </tr>
-</table>
+             </div>
+         </div>
+     </div>
+ </div>
+ <div class="panel panel-default">
+  <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Advanced options</a></h4></div>
+   <div id="collapse1" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-sm-4">
+                {{ filter.againstscreen.label_tag }}<br>
+                {{ filter.againstscreen }}
+            </div>
+            <div class="col-sm-4">
+                {{ filter.comparison.label_tag }}<br>
+                {{ filter.comparison }}<br>
+                {{ filter.pvalue.label_tag }}<br>
+                {{ filter.pvalue }}<br>
+            </div>
+            <div class="col-sm-4">
+                {{ filter.sag.label_tag }}<br>
+                {{ filter.sag }}<br>
+                {{ filter.textsize.label_tag }}<br>
+                {{ filter.textsize }}<br>
+                {{ filter.showtable.label_tag }}<br>
+                {{ filter.showtable }}
+            </div>
+        </div>
+    </div>
+   </div>
+ </div>
+ <div class="panel panel-default">
+    <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+ </div>
+</div>
 </form>
 
+{% if the_script != None %}
+<div class="row">
+    {{the_script|safe}} {{the_div|safe}}
+</div>
+{% endif %}
 {% endblock %}

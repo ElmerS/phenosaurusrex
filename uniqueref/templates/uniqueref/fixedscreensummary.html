@@ -1,30 +1,49 @@
-{% extends 'uniqueref/base_uniqueref.html' %}
-{% block title %}Screen summary{% endblock %}
-{% block base_content %}
-    <form action="/uniqueref/fixedscreensummary/" method="get">
-		{% csrf_token %}
-		<h1> Summary of Screen </h1>
-		<hr>
-		<table>
-            <tr>
-                <td width="25%"></td>
-                <td width="50%" align="center">Select Screen</td>
-                <td width="25%"></td>
-                <td>
-            </tr>
-            <tr>
-                <td width="25%"></td>
-                <td width="50%" align="center">{{ filter.screen }}</td>
-                <td width="25%"></td>
-            </tr>
-        </table>
-        <hr>
-        <input type="submit" value="Submit" />
-        </form>
-    <p></p>
-
-        {{ the_div|safe }}
-	    {{ the_script|safe }}
-        {{ data|safe }}
-
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Summary of screen{% endblock %}
+{% block content %}
+<h1>Screen Summary</h1>
+{% if error != None %}
+    <h4 style="color:#b30000">{{ error|safe }}</h4>
+{% endif %}
+<form action="/uniqueref/fixedscreensummary/" method="get">
+    {% csrf_token %}
+    <div class="form-group row" text-center>
+        {{ filter.screen }}
+    </div>
+<input type="submit" class="btn btn-default" value="Submit" />
+</form>
+<div class="row">
+    <div class="col-md-6 col-md-6">
+        {% if fpscript != None %}
+            {{ fpscript|safe }}
+            {{ fpdiv|safe }}
+        {% endif %}
+    </div>
+    <div class="col-md-6 col-md-6">
+        {% if ufscript != None %}
+            {{ ufscript|safe }}
+            {{ ufdiv|safe }}
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-6">
+        {% if cp0script != None %}
+            {{ cp0script|safe }}
+            {{ cp0div|safe }}
+        {% endif %}
+    </div>
+    <div class="col-md-6 col-md-6">
+        {% if cp1script != None %}
+            {{ cp1script|safe }}
+            {{ cp1div|safe }}
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    {% if gpscript != None %}
+        {{ gpscript|safe }}
+        {{ gpdiv|safe }}
+    {% endif %}
+</div>
 {% endblock %}

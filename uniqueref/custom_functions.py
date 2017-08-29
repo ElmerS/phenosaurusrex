@@ -47,6 +47,10 @@ def authorized_qs_PSSDatapoint(authorized_screens):
     qs_PSSDatapoint = PSSDatapoint.objects.filter(relscreen_id__in=authorized_screens)
     return qs_PSSDatapoint
 
+def authorized_qs_SLSDatapoint(authorized_screens):
+    qs_SLSDatapoint = SLSDatapoint.objects.filter(relscreen_id__in=authorized_screens)
+    return qs_SLSDatapoint
+
 # Query the genes and create dataframe, always needed, no authorization required
 def get_qs_gene():
     qs_gene = Gene.objects.all()
@@ -621,8 +625,8 @@ def BuildFixedScreenSummary(screenid, authorized_screens, user):
     geneplots = plots.single_gene_plots(genes_df, authorized_screens, pvcutoff, authorized_screens, gv.small_geneplot_width)
     print(uniquefinder_df[(uniquefinder_df.abslogmi > 1.5) & (uniquefinder_df.fcpv < 0.01)].sort_values(by=['regoccurences', 'abslogmi'], ascending = [True, False], kind = 'mergesort')[:10])
 
-    summary = plots.create_plot_screen_summary(fishtail_plot, uniquefinder_plot, list_custom_list_plots, geneplots)
-    return (summary)
+    geneplots = plots.vertial_geneplots_layout(geneplots)
+    return fishtail_plot, uniquefinder_plot, list_custom_list_plots, geneplots
 
 
 def BuildFixedScreenSeqSummary(screenid, authorized_screens):
@@ -768,8 +772,36 @@ def calc_geneplot_width(plot_width, screens):
     return width
 
 
+
 ##########################################################
-# 5. Data acquisition for lists (genes, screens and tracks) #
+# 5. Functions specific for Synthetic Lethal Screens     #
+##########################################################
+'''
+def generate_df_sls(screenids, pvcutoff, authorized_screens):
+
+    zpd.DataFrame()
+    for i in screenids:
+
+        # Query the datapoints from the database
+    qs_datapoint=authorized_qs_SLSDatapoint(authorized_screens).filter(relscreen_id=screenid).only('relgene', 'fcpv', 'mi', 'insertions')
+    df_datapoint=qs_datapoint.to_dataframe() # Get all datapoints that match screenid from the QuerySet and create a Dataframe
+    df_gene = create_df_gene()
+
+    # Create a new column in the dataframe datapoint that functions as the colorlabel, depending on the cutoff p-value
+    df_datapoint['color'] = np.where(df_datapoint['fcpv']<=pvcutoff, np.where(df_datapoint['mi']<1, color_sb, color_st), color_ns)
+    df_datapoint['linecolor'] = df_datapoint['color']
+
+    # Convert raw data into 10log values
+    df_datapoint['loginsertions'] = np.log10(df_datapoint['insertions'])
+    df_datapoint['logmi'] = np.log2(df_datapoint['mi'])
+    # Create an extra column in the dataframe that
+    df_datapoint['signame'] = np.where(df_datapoint['fcpv']<=pvcutoff, df_datapoint['relgene'], "")
+    # Merge the dataframe holding all genes and datapoints, as the gene-descriptions in the genes tables is not yet filled, this has no function yet.... except for slowing down everything
+    df = pd.merge(df_gene, df_datapoint, left_on='name', right_on='relgene')
+    return df
+'''
+##########################################################
+# 6. Data acquisition for lists (genes, screens and tracks) #
 ##########################################################
 def list_screens(type, authorized_screens):
     qs = authorized_qs_screen(authorized_screens).filter(screentype=type).order_by('name')
@@ -791,7 +823,7 @@ def list_genes():
     return data
 
 ##########################################################
-# 6. Form validators #
+# 7. Form validators #
 ##########################################################
 
 def validate_track_genelist(genenamesstring):
@@ -821,7 +853,7 @@ def validate_delete_track(customgenelistids, user):
     if (df.shape[0]!=len(customgenelistids)):
         message = delete_track_validation_error
     else:
-        message = delete_track_validation_succes + df.to_html(index=False)
+        message = delete_track_validation_succes + ": "+ df.to_string(columns=['name'], index=False, header=False)
         qs.filter(user=user).filter(id__in=customgenelistids).delete()
     return message
 
@@ -836,3 +868,9 @@ def validate_uniquefinder_input(against_list, screenid, comparison, authorized_s
     elif (set(map(int, against_list)).issubset(set(authorized_screens)) and int(screenid) in authorized_screens)==False: # And finally check of the user is not requesting a screen he/she isnt allowed to see
         error = request_screen_authorization_error
     return error
+
+def stringefy_authorized_screens(authorized_screens):
+	strigefied_authorized_screens = ''
+	for i in range(0, len(authorized_screens)):
+		strigefied_authorized_screens = strigefied_authorized_screens+','+str(authorized_screens[i])
+	return strigefied_authorized_screens
