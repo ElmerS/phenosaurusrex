@@ -14,7 +14,8 @@ settings.py.*
 ###############################
 /static
 /migrations
-/
+/uniqueref/migrations
+/app/migrations
 
 # Compiled source #
 ###################
