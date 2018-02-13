@@ -17,7 +17,6 @@ import custom_functions as cf
 import pandas as pd
 import numpy as np
 import re
-from dal import autocomplete
 
 
 # Different textsizes for labeling the genes, there should be a more sophisticated way, right?

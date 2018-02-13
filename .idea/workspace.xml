@@ -4,39 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47a79cc2-f322-4559-8340-ff1fec9fb9c1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/bokeh-latest.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/bokeh-widgets-latest.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/ComparativeAnalysis.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/Screens.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalAnalysis.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalBionomialAnalysis.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalForms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/UserMessages.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/landing.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout_old.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/screen.png" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/screen.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/the_tool.iml" afterPath="$PROJECT_DIR$/.idea/the_tool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoWebProject/urls.py" afterPath="$PROJECT_DIR$/DjangoWebProject/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/admin.py" afterPath="$PROJECT_DIR$/uniqueref/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/custom_functions.py" afterPath="$PROJECT_DIR$/uniqueref/custom_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/forms.py" afterPath="$PROJECT_DIR$/uniqueref/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/globalvars.py" afterPath="$PROJECT_DIR$/uniqueref/globalvars.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/models.py" afterPath="$PROJECT_DIR$/uniqueref/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/plots.py" afterPath="$PROJECT_DIR$/uniqueref/plots.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-widgets-latest.min.js" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-widgets-latest.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/opengenefinder.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/opengenefinder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/singlescreen.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/singlescreen.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/urls.py" afterPath="$PROJECT_DIR$/uniqueref/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/views.py" afterPath="$PROJECT_DIR$/uniqueref/views.py" />
-    </list>
+    <list default="true" id="47a79cc2-f322-4559-8340-ff1fec9fb9c1" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
