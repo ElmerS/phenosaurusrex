@@ -1,35 +1,96 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpRequest
-from django.db.models import Q, Avg, Max, Min	# To find min and max values in QS
-from django.template import RequestContext
 from django.contrib import messages
+from django.views import View
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django import forms
+from django.utils.decorators import method_decorator
+
+from abc import ABCMeta, abstractmethod
 
 from bokeh.resources import CDN
 from bokeh.embed import components
-from bokeh.layouts import column
-from bokeh.plotting import figure, output_file, show, ColumnDataSource, vplot
-from bokeh.models import HoverTool, TapTool, OpenURL, Circle, Text, CustomJS
-from bokeh.models.widgets import Select, Slider, DataTable, DateFormatter, TableColumn, StringEditor, tables, StringFormatter
-from bokeh.models.layouts import WidgetBox
 
-from django_pandas.io import read_frame
 import pandas as pd
 import numpy as np
 
 from datetime import datetime
-import operator
-from collections import namedtuple
-from .models import *
+
 from custom_functions import *
+import generalforms.reference
 import forms
 from plots import *
+import baseclasses
 import plots
 import custom_functions as cf
-from synthetic_lethal import Screens, SyntheticLethalAnalysis, SyntheticLethalBionomialAnalysis, SyntheticLethalForms
+import globalvars as gv
+import models as db
+
+from sharedvars.messages import errors
+
+decorators = [login_required]
+
+# Dev imports
+import logging
+logger = logging.getLogger(__name__)
+
+"""
+Very very slowly the whole project is being transformed from a function based approach to an object based approach. One
+of the results is a BaseView class where all new View classes inherit from. The major advantage is that this BaseView
+class takes care of the boring stuff that always needs to be processed for a view such as getting the date for in the
+footer, getting the current reference genome used by the user and a couple of things thar are so damn often used that
+they are always performed with any GET request, such as obtaining the user-id (for determining which screens he/sch
+is allowed to see).
+"""
+
+@method_decorator(decorators, name='dispatch')
+class BaseView(View):
+
+	__metaclass__ = ABCMeta
+
+	def __init__(self):
+		self.context = {'year': datetime.now().year}
+		self.user_details = {}
+		self.formdata = None
+
+	def get(self, request, *args, **kwargs):
+		self.user_details['uid'] = self.request.user.id
+		self.user_details['gids'] = list(self.request.user.groups.values_list('id', flat=True))
+		self.user_details['authorized_screens'] = list(cf.get_authorized_screens_from_gids(self.user_details['gids']))
+		# Check if current session has ref stored, if, fetch, else fetch default and store in session
+		if 'ref' in self.request.session.keys():
+			self.user_details['ref'] = self.request.session['ref']
+		else:
+			refquery = baseclasses.ValidatedQuerySet(self.user_details)
+			self.request.session['ref'] = self.user_details['ref'] = refquery.ref
+			self.request.session['refname'] = refquery.get_refname_from_id()
+
+		self.formdata =  dict(self.request.GET.iterlists()) # Request formdata
+
+
+class SwitchReference(BaseView):
+
+	form_class = generalforms.reference.SwitchReference
+	template_name = 'uniqueref/switchref.html'
+
+	def get(self, request, *args, **kwargs):
+		super(SwitchReference, self).get(request)
+		inputcheck = generalforms.reference.ReferenceFormInput(self.user_details, self.formdata)
+		if inputcheck.check():
+			request.session['ref'] = self.user_details['ref'] = int(self.formdata['ref'][0])
+			request.session['refname'] = baseclasses.ValidatedQuerySet(self.user_details).get_refname_from_id()
+			self.context['feedback'] = 'Well done. You successfully switched to the following reference annotation: ' + request.session['refname']
+		else:
+			self.context['form'] = self.form_class()
+		return render(request, self.template_name, self.context)
+
+
+"""
+Under this line the views are still 'classic' function based views that at some point should be transformed to class
+based views.
+"""
+
 
 def home(request):
     """Renders the home page."""
@@ -42,14 +103,13 @@ def home(request):
 
 
 def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    context = {
-	'title':'Contact',
-	'message':'Brummelkamp Lab',
-	'year':datetime.now().year,
-    }
-    return render(request, 'uniqueref/contact.html', context)
+	"""Renders the contact page."""
+	assert isinstance(request, HttpRequest)
+	context = {
+		'title':'Contact',
+		'message':'Brummelkamp Lab',
+		'year':datetime.now().year}
+	return render(request, 'uniqueref/contact.html', context)
 
 
 def about(request):
@@ -62,7 +122,6 @@ def about(request):
  	'year':datetime.now().year,
     }
     return render(request, 'uniqueref/about.html', context)
-
 
 @login_required
 def password_change(request):
@@ -145,7 +204,8 @@ def updates(request):
 @login_required
 # Authorization not required
 def listgenes(request):
-	data = list_genes() # Generate the table
+	authorized_screens=get_authorized_screens(request)
+	data = cf.list_genes(authorized_screens) # Generate the table
 	return render(request, "uniqueref/listgenes.html", {'data':data})
 
 @login_required
@@ -247,35 +307,33 @@ def IPSFishtail(request):
 	highlightpps = request.GET.get('highlightpps', '')
 	givenpvaluepps = request.GET.get('pvaluepps', '')
 	customgenelistid = request.GET.getlist('customgenelistid', '')
+
+	context = {'filter': filter, 'year': datetime.now().year}
+
 	if request.GET:
 		if int(screenid) in authorized_screens:
-			textsize = set_textsize(giventextsize)
-			pvcutoff = set_pvalue(givenpvalue)
-			pvcutoffpps = set_pvalue(givenpvaluepps)
-			title = title_single_screen_plot(screenid, authorized_screens)
-			df = generate_df_pips(screenid, pvcutoff, authorized_screens)
+			textsize = cf.set_textsize(giventextsize)
+			pvcutoff = cf.set_pvalue(givenpvalue)
+			pvcutoffpps = cf.set_pvalue(givenpvaluepps)
+			title = cf.title_single_screen_plot(screenid, authorized_screens)
+			df = cf.generate_df_pips(screenid, pvcutoff, authorized_screens)
 			legend = pd.DataFrame()
+			# Check for custom gene lists, if so, call function 'color_fishtail_by_track'
 			if (len(customgenelistid)>=1):
-				df, legend = color_fishtail_by_track(df, customgenelistid, request.user, pvcutoff)
+				df, legend = cf.color_fishtail_by_track(df, customgenelistid, request.user, pvcutoff)
+			# Check if user want to highlight genes that were identified in positive selection screens
 			if highlightpps == 'on':
-				df = mod_df_linecolor_for_pss(df, pvcutoffpps, authorized_screens)
+				df = cf.mod_df_linecolor_for_pss(df, pvcutoffpps, authorized_screens)
 			else:
-				df['adddescription'] = ''
-			p = pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend)
+				df['adddescription'] = '' # This is more than a bit ugly, grooooose and ieuw
+			p = plots.pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend)
+			context['script'], context['div'] = components(p, CDN)
 			if showtable == "on":
-				data = generate_ips_tophits_list(df) # Generate the table# If input has been given then the fun starts
-			else:
-				data = ""
-			script, div = components(p, CDN)
-			return render(request, "uniqueref/singlescreen.html", {"the_script":script, "the_div":div, 'filter':filter, 'data':data})
-		elif (screenid in authorized_screens)==False: # If something else is the case then someone has been screwing around with the URL. That we do not accept.
-			data = request_screen_authorization_error
-			return render(request, "uniqueref/singlescreen.html", {'filter':filter, 'data':data})
+				context['negreg'], context['posreg'] = cf.generate_ips_tophits_list(df)
+		# If previous statement returns false, the user has manually modified the GET request in an illegal way. Serve an error.
 		else:
-			data = gv.formerror
-			return render(request, "uniqueref/singlescreen.html", {'filter': filter, 'data': data})
-	else:
-		return render(request, "uniqueref/singlescreen.html", {'filter':filter})
+			context['error'] = gv.request_screen_authorization_error
+	return render(request, "uniqueref/singlescreen.html", context)
 
 @login_required	        	   	
 def uniquefinder(request):
@@ -346,6 +404,7 @@ def opengenefinder(request):
 	givenpvaluepss = request.GET.get('pvaluepss', '')
 	customgenelistid = request.GET.get('customgenelistid', '')
 	plot_width = request.GET.get('plot_width', '')
+	legend = request.GET.get('legend', '')
 	if not customgenelistid:
 		customgenelistid = []
 	else:
@@ -369,6 +428,8 @@ def opengenefinder(request):
 			given_genes_array, error = create_genes_array(genenamesstring) # Call the function create_genes_array to check the given genenames against the genes-table and convert to array
 			custom_gene_list_array = gene_array_from_trackids(customgenelistid) # Retrieve the genes from the custom_track
 			genes_array = np.concatenate((given_genes_array, custom_gene_list_array), axis=0) # Concatenate the two arrays (from custom_track and the open search field to enter a genename)
+			legend = True if legend=='on' else False
+
 			# If it needs to be indicated when a gene has been found as hit in a postive selection screen
 			if highlightpss=="on":		# Highlighting of datapoints is not so usefull in gene-histograms or in a fishtails plot of the same gene within multiple screens but everything will be highlight.
 				genes_df = mod_df_geneplot_with_pss(genes_array, pvcutoffpss, authorized_screens) # Therefore, in case of a gene-histogram, the title tells whether the gene is a hit
@@ -382,7 +443,7 @@ def opengenefinder(request):
 					error = max_graphs_warning
 					return render(request, 'uniqueref/opengenefinder.html', {'filter':filter, 'error':error})
 				# Becuase multiple plot can be created, the function to create the dataframes is called from single_gene_plots instead in advance
-				plotlist = plots.single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, plot_width)
+				plotlist = plots.single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, plot_width, legend=legend)
 				p = plots.vertial_geneplots_layout(plotlist)
 			else: # if pgh!=on than a compound fishtail is plotted were all datapoints of multiple screens of one ore more genes are plotted on top of each other
 				df, legend = df_compound_geneplot(genes_df, screenids_array, colorby, pvcutoff, authorized_screens, customgenelistid, request.user)
@@ -472,38 +533,3 @@ def FixedScreenSeqSummary(request):
 	else:
 		return render(request, "uniqueref/fixedscreenseqsummary.html", {'filter': filter, 'data': data})
 
-@login_required
-def SyntheticLethalView(request):
-	# Obtain list of screens that user is allowd to view and parse to first form
-	authorized_screens=get_authorized_screens(request)
-	screenid = request.GET.get('screenid', '')
-	error = 'NA'
-	if not screenid:
-		# Serve the initial form if no screenid was given
-		filter = SyntheticLethalForms.ScreenForm(authorized_screens=authorized_screens)  # First load the filter from forms
-		return render(request, "uniqueref/syntheticlethal.html", {'filter': filter, 'step': 1})
-	else:
-		# Check screenids
-		if int(screenid) in authorized_screens:
-			replicates = request.GET.getlist('replicates', '')
-			strigefied_authorized_screens = ''
-			if not replicates: # Any required value from the second form can be used to determine wether the second form shoulld be served or a grapgh should be drawn
-				# Serve the second form, requires the current screens as well as authorized screens and user id, needs to be concatenated
-				for i in range(0, len(authorized_screens)):
-					strigefied_authorized_screens = strigefied_authorized_screens + ',' + str(authorized_screens[i])
-				input = str(screenid) + '|' + strigefied_authorized_screens.lstrip(',') + '|' + str(request.user)
-				filter = SyntheticLethalForms.AnalysisForm(compound_input=input)  # First load the filter from forms
-				return render(request, "uniqueref/syntheticlethal.html", {'filter': filter, 'step': 2})
-			else:
-				# Serve user the requested data
-				binomcutoff = 0.05
-				SLIScreenObjects = {}
-				for r in replicates:
-					SLIScreenObjects[r] = Screens.SLIScreenReplicate(screenid, r)
-				AnalysisObject = SyntheticLethalBionomialAnalysis.SyntheticLethalBionomialAnalysis(SLIScreenObjects)
-				script, div = AnalysisObject.BuildView(binomcutoff, authorized_screens)
-				return render(request, "uniqueref/syntheticlethal.html", {'script': script, 'div': div, 'step': 3})
-		else:
-			# Serve error and return to initial form
-			filter = forms.ScreenForm(authorized_screens=authorized_screens)  # First load the filter from forms
-			return render(request, "uniqueref/syntheticlethal.html", {'filter': filter, 'step': 1, error:request_screen_authorization_error})

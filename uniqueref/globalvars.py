@@ -10,14 +10,14 @@ exception_color = '#33cc33'
 df_custom_track_colors = pd.DataFrame([[0, "#FFA82E"], [1, '#FF4A2E'], [2, '#DBC500'], [3, '#96E100'], [4, '#009914'], [5, '#00DAD2'], [6, '#0066DA'], [7, '#16048B'], [8, '#910DCE'], [9, '#F442BC']], columns=["id","color"])
 
 # The color of not-significant hits:
-color_ns = '#b3b3b3'
+color_ns = '#D2D2D2'
 color_sig_non_colored = '#4d4d4d'
 
 # The color of significant hits on the top of the graph
-color_st = '#e65c00'
+color_st = '#FEC026'
 
 # The color of significant hit on the bottom of the graph
-color_sb = '#33cc33'
+color_sb = '#4C86C6'
 
 # The color of the 'low' channel reads
 color_low_rr = '#a00808' # Raw reads
@@ -40,6 +40,8 @@ title_raw_reads_graph = 'Total number of sequence reads in low and high channel'
 title_unique_reads_graph = 'Total number of unique sequence reads and mapped reads in low and high channel'
 
 pss_highlight_color = '#8c1aff'
+
+legend_background = '#C0C0C0'
 
 full_toolset = "resize,hover,save,pan,wheel_zoom,box_zoom,reset,tap"
 
@@ -78,7 +80,7 @@ unique_finder_arrow_more_sign = pd.Series(Reds9[::-1])
 minimal_logmi_difference = 1.5
 
 #
-# Error messages
+# OLD PLACE FOR ERROR MESSAGES. DO NOT USE ANYMORE. NEW LOCAION is sharedvars/messages/errors.py
 #
 coloroverlay_mi_error= 'Please select only 1 screen to compare against in the color-overlay and MI-arrows function'
 max_graphs_warning = 'Go draw your own plots, I am not drawing more than 50 plots on one page!'

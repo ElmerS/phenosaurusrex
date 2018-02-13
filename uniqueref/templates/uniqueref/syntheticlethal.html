@@ -14,8 +14,10 @@
     </div>
 <input type="submit" class="btn btn-default" value="Next" />
 
+{% if form.error %}
+    {{ form.error }}
+{% endif %}
 
-{% elif step == 2 %}
 <form action="/uniqueref/syntheticlethal/" method="get">
     {% csrf_token %}
     <div class="panel-group">

@@ -1,0 +1,140 @@
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Select Synthetic Lethal Interaction Screen for Analysis{% endblock %}
+{% block content %}
+<h1>Synthetic Lethality</h1>
+
+<form action="/uniqueref/synthetic-lethality/results" method="get">
+    {% csrf_token %}
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                    <div class="col-md-4">
+                        {{ form.analysis.label_tag }}
+                        {{ form.analysis }}
+                        {{ form.screenid }}<p><br>
+                        {{ form.aggregate.label_tag }} {{ form.aggregate }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        {{ form.oca.label_tag }}
+                        {{ form.oca }}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h4 class="panel-title">Select replicates</h4></div>
+                                <div class="panel-body">
+                                    <p class="text-center">
+                                        {% for replicate in form.replicates %}
+                                            <label for="{{ control.id_for_label }}">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;{{ replicate.choice_label }}
+                                                <span class="radio">{{ replicate.tag }}</span>
+                                            </label>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="analysis" href="#collapse1">Advanced options</a></h4></div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="form-group row" text-center>
+                    <div class="col-md-4">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h4 class="panel-title">Select replicates of control:</h4></div>
+                                <div class="panel-body">
+                                    <div class="form-group row" text-center>
+                                        <p class="text-center">
+                                            {% for control in form.controls %}
+                                                <label for="{{ control.id_for_label }}">
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;{{ control.choice_label }}
+                                                  <span class="radio">{{ control.tag }}</span>
+                                                </label>
+                                            {% endfor %}
+                                            <br>{{ form.controls.label_tag }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h4 class="panel-title">P-value cutoffs</h4></div>
+                                <div class="panel-body">
+                                    <div class="form-group row" text-center>
+                                        {{ form.binom_p_value.label_tag }}<br>
+                                        {{ form.binom_p_value }}<br>
+                                        {{ form.fisher_p_value.label_tag }}<br>
+                                        {{ form.fisher_p_value }}
+                                        {{ form.fisher_p_value.help_text }}<br><br>
+                                        {{ form.fdr.label_tag }} {{ form.fdr }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h4 class="panel-title">Effect size</h4></div>
+                                <div class="panel-body">
+                                    <div class="form-group row" text-center>
+                                        {{ form.effect_size.label_tag }}<br>
+                                        {{ form.effect_size }}<br>
+                                        {{ form.directionality.label_tag }} {{ form.directionality }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-group row" text-center>
+                    <div class="col-md-12">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h4 class="panel-title">Label hits</h4></div>
+                                <div class="panel-body">
+                                    <div class="form-group row">
+                                        <div class="col-xs-12 col-md-8">
+                                            {{ form.genes.label_tag }}
+                                            {{ form.genes }}
+                                        </div>
+                                        <div class="col-xs-12 col-md-4">
+                                            {{ form.customgenelist.label_tag }}
+                                            {{ form.customgenelist }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" text-center>
+                                        <div class="col-xs-12">
+                                            {{ form.aas.label_tag }}
+                                            {{ form.aas }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body"><input type="submit" class="btn btn-default" value="Submit" /></div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
+

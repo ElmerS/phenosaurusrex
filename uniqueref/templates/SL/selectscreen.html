@@ -1,0 +1,15 @@
+{% extends 'uniqueref/layout.html' %}
+{% block title %}Select Synthetic Lethal Interaction Screen for Analysis{% endblock %}
+{% block content %}
+<h1>Synthetic Lethality</h1>
+
+<form action="/synthetic-lethality/selectparameters" method="get">
+    {% csrf_token %}
+    <div class="form-group row" text-center>
+        {{ form.screenid.label_tag | safe }}
+        {{ form.screenid | safe }}
+        Can't find the screen you are looking for? Perhaps it's analyzed with a different annotation you're currently using.
+    </div>
+<input type="submit" class="btn btn-default" value="Next" />
+</form>
+{% endblock %}

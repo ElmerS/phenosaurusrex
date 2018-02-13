@@ -3,9 +3,21 @@ Definition of urls for DjangoWebProject.
 """
 from datetime import datetime
 from django.conf.urls import url, handler400, handler403, handler404, handler500
-from uniqueref.forms import BootstrapAuthenticationForm
+from uniqueref.generalforms.login import BootstrapAuthenticationForm
 import uniqueref.views as aviews
 from django.contrib.auth import views
+from django.urls import reverse_lazy
+
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordChangeView,
+    PasswordChangeDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView
+)
 
 # Serve static files during development
 from django.conf import settings
@@ -27,21 +39,23 @@ handler500 = 'uniqueref.views.server_error'
 urlpatterns = [
     # Account editing form
     url(r'^edit_account/$', aviews.edit_account, name='edit_account'),
-    # Custom change password and reset forms
-    url(r'^password_change/$', views.password_change,
-	{'template_name': 'uniqueref/account/password_change_form.html'}),
-    url(r'^password_change/done/$', views.password_change_done,
-	{'template_name': 'uniqueref/account/password_change_done.html'}),
-    url(r'^password_reset/$', views.password_reset,
-	{'template_name': 'uniqueref/account/password_reset_form.html',
-	'email_template_name': 'uniqueref/account/password_reset_email.html',
-	'subject_template_name': 'uniqueref/account/password_reset_subject.txt'}),
-    url(r'^password_reset/done/$', views.password_reset_done,
-	{'template_name': 'uniqueref/account/password_reset_done.html'}),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.password_reset_confirm,
-	{'template_name': 'uniqueref/account/password_reset_confirm.html'}),
-    url(r'^reset/done/$', views.password_reset_complete,
-	{'template_name': 'uniqueref/account/password_reset_complete.html'}),
+
+    # Change password forms
+    url(r'^password_change/$', PasswordChangeView.as_view(template_name='accounts/password_change_form.html'),
+        name='password_change'),
+    url(r'^password_change/done/$', PasswordChangeDoneView.as_view(template_name='accounts/password_change_done.html'),
+        name='password_change_done'),
+
+    # Password reset views
+    url(r'^password_reset/$', PasswordResetView.as_view(template_name='accounts/password_reset_form.html'),
+        name='password_reset'),
+    url(r'^password_reset/done/$', PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'),
+        name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        PasswordResetConfirmView.as_view(template_name='accounts/password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    url(r'^reset/done/$', PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),
+        name='password_reset_complete'),
 
     # Landing page
     url(r'^$', aviews.home, name='home'),
@@ -61,12 +75,7 @@ urlpatterns = [
             }
         },
         name='login'),
-    url(r'^logout$',
-        views.logout,
-        {
-            'next_page': '/',
-        },
-        name='logout'),
+    url(r'^logout$', LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
     # Url patterns for password change and reset, see https://docs.djangoproject.com/en/1.10/topics/auth/default/
-    url('^', include('django.contrib.auth.urls')),
+    url('^', include('uniqueref.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

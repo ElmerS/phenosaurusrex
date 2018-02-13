@@ -1,6 +1,6 @@
 # Import Django related libraries and functions
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+
 from django.utils.translation import ugettext_lazy as _
 from django_pandas.io import read_frame
 from django.shortcuts import render
@@ -70,17 +70,6 @@ plot_widths = (
 
 
 
-class BootstrapAuthenticationForm(AuthenticationForm):
-    """Authentication form which uses boostrap CSS."""
-    username = forms.CharField(max_length=254,
-                               widget=forms.TextInput({
-                                   'class': 'form-control',
-                                   'placeholder': 'User name'}))
-    password = forms.CharField(label=_("Password"),
-                               widget=forms.PasswordInput({
-                                   'class': 'form-control',
-                                   'placeholder':'Password'}))
-
 class FixedScreenSummaryForm(forms.Form):
         def __init__(self, *args, **kwargs):
                 compound_input = kwargs.pop('compound_input')
@@ -105,13 +94,15 @@ class SingleIPSPlotForm(forms.Form):
 	screen = forms.ModelChoiceField(queryset=db.Screen.objects.all(), label='Choose screen', widget=forms.Select(attrs={'class': 'form-control'}))
 	customgenelistid = forms.ModelMultipleChoiceField(queryset=db.CustomTracks.objects.all(), widget=forms.SelectMultiple(attrs={'size': '15', 'class': 'form-control'}), label='Select track(s) to color the datapoints', required=False)
 
-	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc,
+								widget=forms.NumberInput(attrs={'class': 'form-control'}))
 	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
 	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
 	sag = forms.BooleanField(initial=True, label='Label all significant hits')
-	showtable = forms.BooleanField(required=False, label="List all significant genes in table")
+	showtable = forms.BooleanField(required=False, label="List all significant genes in table", initial=True, widget=forms.CheckboxInput(attrs={'class': 'form-checkbox'}))
 	highlightpps = forms.BooleanField(required=False, label="Encircle hits founds in positive selection screens")
-	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'step': 0.01, 'min': 0, 'max': 1}))
+	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc,
+								widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
 class UniqueHitFinderForm(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -126,11 +117,13 @@ class UniqueHitFinderForm(forms.Form):
 	oca = forms.ChoiceField(label='Select action on click', choices=ocao, initial='gc', widget=forms.Select(attrs={'class': 'form-control'}))
 	comparison = forms.ChoiceField(label='Choose comparison', choices=comparison_choices, initial='unique', widget=forms.Select(attrs={'class': 'form-control'}))
 	showtable = forms.BooleanField(required=False, label="List all significant genes in table")
-	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	pvalue = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc,
+								widget=forms.NumberInput(attrs={'class': 'form-control'}))
 	textsize = forms.ChoiceField(label='Textsize (px)', choices=textsize, initial='11px', widget=forms.Select(attrs={'class': 'form-control'}))
 	sag = forms.BooleanField(required=False, label='Label all significant hits')
 	highlightpps = forms.BooleanField(required=False, label="Encircle hits founds in positive selection screens")
-	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	pvaluepps = forms.DecimalField(required=False, label='P-value cutoff (can also be written as 1E-xx)', initial=gv.pvdc,
+								widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
 class OpenGeneFinderForm(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -153,6 +146,8 @@ class OpenGeneFinderForm(forms.Form):
 	highlightpss = forms.BooleanField(required=False, label="Indicate if found in positive selection screens")
 	pvaluepss = forms.DecimalField(required=False, label='P-value cutoff for positive selection screens', initial=gv.pvdc, widget=forms.NumberInput(attrs={'class': 'form-control'}))
 	plot_width = forms.ChoiceField(label='Plot width', choices=plot_widths, initial='normal', widget=forms.Select(attrs={'class': 'form-control'}))
+	legend = forms.BooleanField(required=False, label="Show legend", initial=False,
+									 widget=forms.CheckboxInput(attrs={'class': 'form-checkbox'}))
 
 class SinglePSSBubblePlot(forms.Form):
 	def __init__(self, *args, **kwargs):

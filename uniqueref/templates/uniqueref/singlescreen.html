@@ -58,7 +58,23 @@
 </div>
 </form>
 
-{% if the_script != None %}
-    {{the_script|safe}} {{the_div|safe}}
+{% if error %}
+    {{ error|safe }}
+{% endif %}
+
+{% if script != None %}
+    {{script|safe}} {{div|safe}}
+{% endif %}
+{% if negreg or posreg %}
+<div class="row">
+    <div class="col-sm-6">
+        <h4 style="color:#666666">Negative regulators (based on your p-value cutoff)</h4>
+        <h5 style="color:#666666">{{ negreg|safe }}</h5>
+    </div>
+    <div class="col-sm-6">
+        <h4 style="color:#666666">Positive regulators (based on your p-value cutoff)</h4>
+        <h5 style="color:#666666">{{ posreg|safe }}</h5>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

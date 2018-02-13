@@ -1,0 +1,11 @@
+{% extends 'uniqueref/layout.html' %}
+{% block title %}List of the gene annotation files in the database{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="table-responsive">
+    <h1>Gene annotations in the database</h1>
+    {{table| safe}}
+    </div>
+</div>
+
+{% endblock %}

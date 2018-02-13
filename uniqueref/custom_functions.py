@@ -21,16 +21,18 @@ import plots
 import globalvars as gv
 
 ##########################################################
-# 1. General Functions                                   #
+# 1. Querysets                                           #
 ##########################################################
 
-##########################################################
-#               QuerySet Authorization                   #
-#    !!!! Querysets are EXCLUSIVELY allowd here!!!!!     #
-##########################################################
+####################################################################################################################
+#                            !!!! QUERYSETS ARE EXCLUSIVELY ALLOWED HERE !!!!                                      #
+####################################################################################################################
 
-# This function creates a list of all screen-id's based on the users group ids (GIDS)
-# The authorized querysets use this function to determine which screens and/or datapoints can be queried by a certain user
+# Use the gids argument to list which screens a user is allowed to see
+# The information is stored in the ScreenPermissions model
+# Although the authorization is not required for the public version, it is still used because it
+# renders the code future proof when at some point authetication is required
+
 def get_authorized_screens_from_gids(gids):
     authorized_screens =  Screen.objects.filter(groups__in=gids).distinct().values_list('id',flat=True) #### THIS IS NOT A TRUE PYTHON LIST! KEEP THAT IN MIND, CANNOT DO str(list) because you will get [1,2,3...,19, ...(remaining elements truncated)]
     return authorized_screens
@@ -72,12 +74,16 @@ def get_qs_summary(authorized_screens):
     qs_summary = SeqSummary.objects.filter(relscreen_id__in=authorized_screens)
     return qs_summary
 
-def get_qs_custom_variables():
-    qs_custom_variables = CustomVariables.objects.all()
-    return qs_custom_variables
+def get_qs_settings():
+    qs_custom_variables = Settings.objects.all()
+    return qs_settings
+
+####################################################################################################################
+#                                !!!!     NO QUERYSETS ALLOWED BELOW THIS LINE!!!                                  #
+####################################################################################################################
 
 ##########################################################
-#  !!!!     NO QUERYSETS ALLOWED BELOW THIS LINE!!!      #
+# 2. General Functions                                   #
 ##########################################################
 
 def create_df_gene():
@@ -268,15 +274,6 @@ def generate_df_ppss(screenid, pvcutoff, sepbool, authorized_screens):
     df.rename(columns={'seq': 'xval', 'logfcpv': 'yval'}, inplace=True)
     return df
 
-# 2.2: A tiny wee little function to generate a table from all significant hits in the dataframe
-# As this file is actually all about data manipulation and the generate_ps_tophits is more about displaying data, is should be moved at some point to another file dedicated to displaying data
-def generate_ps_tophits_list(df):
-    df_top = df[(df['signame'] != "")]
-    data = df_top[['relgene','fcpv','nm']].sort('fcpv').to_html(index=False)
-    return data
-
-
-
 
 
 #############################################################
@@ -287,7 +284,7 @@ def generate_ps_tophits_list(df):
 def generate_df_pips(screenid, pvcutoff, authorized_screens):
 
     # Query the datapoints from the database
-    qs_datapoint=authorized_qs_IPSDatapoint(authorized_screens).filter(relscreen_id=screenid).only('relgene', 'fcpv', 'mi', 'insertions')
+    qs_datapoint=authorized_qs_IPSDatapoint(authorized_screens).filter(relscreen_id=screenid).only('relgene', 'fcpv', 'mi', 'insertions', 'low', 'high')
     df_datapoint=qs_datapoint.to_dataframe() # Get all datapoints that match screenid from the QuerySet and create a Dataframe
     df_gene = create_df_gene()
 
@@ -352,12 +349,12 @@ def color_fishtail_by_track(df, customgenelistid, user, pvcutoff):
     boolean_list_duplicates_to_keep  = df_colored_genes.duplicated(subset='relgene')
     gene_df_nonunique_tmp = pd.concat([df_colored_genes, boolean_list_duplicates_to_keep], axis=1)
     gene_df_nonunique = gene_df_nonunique_tmp.loc[gene_df_nonunique_tmp[0]==True]
-    gene_df_nonunique['color'] = exception_color
+    gene_df_nonunique['color'] = gv.exception_color
     gene_df_unique = df_colored_genes.drop_duplicates(subset='relgene', keep=False)
     df_colored_genes_unique = pd.concat([gene_df_nonunique[['relgene', 'color']], gene_df_unique])
 
     # The dataframe (df) that is received from views already has a color and linecolor, let's get rid of that first
-    input_df = df[['relgene', 'relscreen', 'fcpv', 'logmi', 'loginsertions', 'mi', 'insertions']]
+    input_df = df[['relgene', 'relscreen', 'fcpv', 'logmi', 'loginsertions', 'mi', 'insertions','low', 'high']]
     output_df = pd.merge(input_df, df_colored_genes_unique, how='left', on='relgene')
     output_df = output_df.fillna('')
     output_df['color'] = np.where(output_df['color']=='', np.where(output_df['fcpv']<=pvcutoff, color_sig_non_colored, color_ns), output_df['color'])
@@ -367,18 +364,25 @@ def color_fishtail_by_track(df, customgenelistid, user, pvcutoff):
     # To make life a little easier, let's add a legend to indicate what color matches the tracks
     legend = df_colored_track[['name', 'color']]
     if (legend.shape[0] > 1):
-        legend = legend.append([{'name': 'In multiple tracks', 'color': exception_color}])
+        legend = legend.append([{'name': 'In multiple tracks', 'color': gv.exception_color}])
     return output_df, legend
 
 # 3.3: A tiny wee little function to generate a table from all significant hits in the dataframe
 # As this file is actually all about data manipulation and the generate_ps_tophits is more about displaying data, is should be moved at some point to another file dedicated to displaying data
 def generate_ips_tophits_list(df):
-    df_top = df[(df['signame'] != "")]
+    df_top = df[(df['signame'] != "")][['relgene', 'low', 'high', 'fcpv', 'logmi']]
+    df_top.rename(columns={'logmi': 'log2(MI)'}, inplace=True)
+    # Change the relgene column to a url (and remove the part after the @ in case of extended genenames)
+    df_top['relgene'] = '<a href=\"' + gv.ucsc_link + df_top['relgene'].str.split("@", 1).str[0] + '\"' + 'target=\"_blank\"' + '>' + df_top['relgene'] + '</a>'
     if (not df_top.empty):  # We need this because if someone plots a track of which none of the genes is present in the screen it will crash
-        data = df_top[['relgene','fcpv', 'insertions', 'mi', 'adddescription']].sort('fcpv').to_html(index=False)
+        with pd.option_context('display.max_colwidth', -1): # And this option is to temporarily increase the column width of a pandas dataframe
+            negreg = df_top[df_top['log2(MI)']>=0].sort_values(by='log2(MI)', ascending=False).to_html(index=False, justify='left', escape=False)
+            posreg = df_top[df_top['log2(MI)']<0].sort_values(by='log2(MI)').to_html(index=False, justify='left', escape=False)
     else:
-        data = ""
-    return data
+        negreg, posreg = ""
+    return negreg, posreg
+
+
 
 # 3.4: Function to generate the title for a compound fishtail 
 def title_ips_uniquefinder(screenid, against_list, comparison, authorized_screens):
@@ -610,7 +614,9 @@ def BuildFixedScreenSummary(screenid, authorized_screens, user):
 
     # Create additional fishtail plots for all custom tracks that are listed in the custom_variables table, currently these are all squeezed into a single row
     list_custom_list_plots = []
-    customlist_ids = list(get_qs_custom_variables().distinct().values_list('custom_track_list_for_summary',flat=True))
+    customlist_ids = [int(i) for i in get_qs_settings.filter(
+			variable_name='custom_tracks_for_summary').values_list(
+			'value')[0][0].split(',')]
     plotable_lists = get_qs_customtracks(onlypublic=True).filter(id__in=customlist_ids).to_dataframe() # A little check to see if the custom_list_ids in custom_variables are flagged as public, only those we plot, and put all info in a df
     for row in plotable_lists.iterrows():
         plot_title = row[1][2]
@@ -817,10 +823,30 @@ def list_tracks(currentuser):
     data = df.to_html(index=False)
     return data
 
-def list_genes():
+def list_genes(authorized_screens):
     df = create_df_gene()
-    data = df.to_html(index=False)
-    return data
+
+    # For creating the links to geneplots, get the autorized screens and us
+    screenids = authorized_qs_screen(authorized_screens).filter(screentype='IP').to_dataframe()['id'].values.tolist()
+    screen_part_url = ''
+    for i in screenids:
+        curr_scr = 'screens='+str(i)+'&'
+        screen_part_url = ''.join([screen_part_url, curr_scr])
+    df['urlencoded'] = df['name'].str.replace('+', '%2B') # the '+' sign needs to be encoded to safe ASCII otherwise the GET request does not understand it
+    df['UCSC Link'] = '<a href=\"' + gv.ucsc_link + df['name'].str.split("@", 1).str[
+        0] + '\"' + 'target=\"_blank\"' + '>' + df['name'].str.split("@", 1).str[0] + '</a>'
+    df['name'] = '<a href=\"../opengenefinder/?' + \
+                 screen_part_url + \
+                 '&genes=' + \
+                 df['urlencoded'] + \
+                 '&plot_width=normal&pgh=on&oca=gc&cb=cbpv\", ' + \
+                 'target=\"_blank\">' + \
+                 df['name'] + \
+                 '</a>'
+    df = df.drop(['urlencoded', 'id'], 1)
+    with pd.option_context('display.max_colwidth', -1):
+            table = df.sort_values(by='name').to_html(index=False, justify='left', escape=False)
+    return table
 
 ##########################################################
 # 7. Form validators #

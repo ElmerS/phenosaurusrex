@@ -1,12 +1,10 @@
-from bokeh.plotting import figure, output_file, show, vplot
+from bokeh.plotting import figure
 from bokeh.models.widgets import Select
 from bokeh.models import HoverTool, TapTool, OpenURL, Circle, Text, CustomJS, FixedTicker, ColumnDataSource, Legend
 from bokeh.models.widgets import TableColumn, DataTable
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.layouts import column, row, layout, Row, Spacer, gridplot
-from bokeh.charts import Bar
-from bokeh.io import vplot, hplot, gridplot
 import pandas as pd
 import numpy as np
 from django.contrib.auth.decorators import login_required
@@ -18,13 +16,17 @@ from .models import Gene, IPSDatapoint, PSSDatapoint, Screen, Location
 import sys
 import custom_functions
 
+import globalvars as gv
+
 TOOLS = "resize,hover,save,pan,wheel_zoom,box_zoom,reset,tap"
 
 ##########################################################
 # 1. Fishtail plots                                       #
 ##########################################################
 
-def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.DataFrame(), df_arrow=pd.DataFrame(), setwidth=1000, setheight=700, legend_location="top_right", toolbar_location="below", customtools='full_set'):
+def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.DataFrame(), df_arrow=pd.DataFrame(),
+                  setwidth=1000, setheight=700, legend_location="top_right", toolbar_location="below",
+                  customtools='full_set'):
 
     if(customtools=='limited_set'):
         TOOLS = "resize,pan,wheel_zoom,box_zoom,tap,reset"
@@ -48,7 +50,7 @@ def pfishtailplot(title, df, sag, oca, textsize, authorized_screens, legend=pd.D
         x_range=(0, max_x),
         tools=[TOOLS],
         title=title,
-        webgl=True,
+        output_backend="webgl",
         x_axis_label = "Insertions [10log]",
         y_axis_label = "Mutational index [2log]"
     )
@@ -170,7 +172,7 @@ def pbubbleplot(title, df, scaling, oca, sag, textsize, authorized_screens):
         x_range=(0-0.05*len(df.index), 1.05*len(df.index)),
         tools=[TOOLS],
         title=title,
-        webgl=True,
+        output_backend="webgl",
         x_axis_label = "Genes",
         y_axis_label = '-log(p)',
         y_axis_type = yat,
@@ -256,7 +258,8 @@ def pbubbleplot(title, df, scaling, oca, sag, textsize, authorized_screens):
 # 3. Single gene plots (genefinder histogram things)     #
 ##########################################################
 
-def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, plot_width):
+
+def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, plot_width, legend=False):
     # A limited set of tools
     TOOLS = "resize,save,pan,wheel_zoom,box_zoom,reset"
     # The labels for the x-axis
@@ -295,6 +298,29 @@ def single_gene_plots(genes_df, screenids_array, pvcutoff, authorized_screens, p
         )
         figures[y].circle('relscreen', 'logmi', color='color', alpha=1, source=source, size=10)
         figures[y].xaxis.major_label_orientation = pi/4
+        # The hover guy
+        hover = figures[y].select(type=HoverTool)
+        hover.tooltips = [
+            ('P-Value', '@fcpv'),
+            ('log(MI)', '@logmi'),
+            ('Screen', '@relscreen'),
+        ]
+
+        if legend:
+            legend = Legend(items=[
+                ('Pos. reg', [figures[y].circle(x=0, y=0, color=gv.color_sb)]),
+                ('Neg. reg', [figures[y].circle(x=0, y=0, color=gv.color_st)]),
+                ('Not sign', [figures[y].circle(x=0, y=0, color=gv.color_ns)])],
+                location='top_right',
+                orientation = 'horizontal',
+                background_fill_alpha = 0.1,
+                background_fill_color = gv.legend_background,
+                border_line_width = 1,
+                border_line_color = "black",
+                border_line_alpha = 0.3
+            )
+            figures[y].add_layout(legend)
+
         plot_dict[y]=figures[y]
     return(plot_dict.values())
 
@@ -340,6 +366,8 @@ def cross_screen_scatter(dataframe, title, plot_width, x_range, legend=pd.DataFr
     p.add_layout(legend)
     return p
 
+
+'''
 ##########################################################
 # 7. A general barplot
 ##########################################################
@@ -348,6 +376,7 @@ def barplot(dataframe):
         title="Median MPG by YR, grouped by ORIGIN", legend='top_right')
     return p
 
+'''
 ##########################################################
 # 8. Grid Layout of Fixed Screen Summary                 #
 ##########################################################

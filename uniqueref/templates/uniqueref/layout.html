@@ -13,9 +13,11 @@
     <!-- Custom CSS for the template -->
     <link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bootstrap_customizations.css' %}" />
 
+
    	<!-- CSS for bokeh -->
-	<link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bokeh-latest.min.css' %} " />
-	<link rel="stylesheet" type="text/css" href="{% static 'uniqueref/content/bokeh-widgets-latest.min.css' %} " />
+	<link rel="stylesheet" type="text/css" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.13.min.css" />
 
     <!-- Scripts for the template -->
     <script src="{% static 'uniqueref/scripts/modernizr-2.6.2.js' %}"></script>
@@ -24,8 +26,10 @@
     <script src="{% static 'uniqueref/scripts/respond.min.js' %}"></script>
 
 	<!-- Scripts for Bokeh -->
-	<script type="text/javascript" src="{% static 'uniqueref/scripts/bokeh-latest.min.js' %}" ></script>
-	<script type="text/javascript" src="{% static 'uniqueref/scripts/bokeh-widgets-latest.min.js' %}" ></script>
+	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.13.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-gl-0.12.13.min.js"></script>
 
 	<!-- The favicon -->
 	<link rel="shortcut icon" href="{% static 'favicon.png' %}"/>
@@ -58,8 +62,8 @@
 						    <li><a href='/uniqueref/opengenefinder'><span>Gene Search</span></a></li>
                             <li class="divider"></li>
                             <li><h6 class="dropdown-header">Synthetic Lethality</h6></li>
-                            <li><a href='/uniqueref/fixedscreensummary'><span>Visualize screen</span></a></li>
-                            <li><a href='/uniqueref/fixedscreensummary'><span>Visualize replicate</span></a></li>
+                            <li><a href='/synthetic-lethality/selectscreen/'><span>Analyze screen</span></a></li>
+                            <li><a href='/synthetic-lethality/selectcontrol/'><span>Analyze WT controls</span></a></li>
                             <li class="divider"></li>
                             <li><h6 class="dropdown-header">Positive Selection</h6></li>
                             <li><a href='/uniqueref/pssbubbleplot'><span>Bubble Plot</span></a></li>
@@ -74,9 +78,13 @@
                                 <li><a href='/uniqueref/listgenes'><span style="white-space:nowrap">List all Genes</span></a></li>
                                 <li class="divider"></li>
                                 <li><h6 class="dropdown-header">Tracks</h6></li>
-                                <li><a href='/uniqueref/listtracks'><span>List tracks</span></a></li>
-                                <li><a href='/uniqueref/uploadtrack'><span>Upload new track</span></a></li>
-                                <li><a href='/uniqueref/deletetrack'><span>Delete track</span></a></li>
+                                <li><a href='/uniqueref/listtracks/'><span>List tracks</span></a></li>
+                                <li><a href='/uniqueref/uploadtrack/'><span>Upload new track</span></a></li>
+                                <li><a href='/uniqueref/deletetrack/'><span>Delete track</span></a></li>
+                                <li class="divider"></li>
+                                <li><h6 class="dropdown-header">Gene annotations</h6></li>
+                                <li><a href='/switch-reference-genome/'>Change reference</span></a></li>
+                                <li><a href='/sources/annotations'>List references</span></a></li>
                         </ul>
                         </div>
                     </li>
@@ -84,8 +92,8 @@
                         <div class="dropdown">
                         <a class="dropdown-toggle navbar-inverse" data-toggle="dropdown" href="#" aria-expanded="false">Help<span class="caret"></span></a>
                         <ul class="dropdown-menu multi-level" role="menu">
-                            <li><a href='/uniqueref/help'><span>Documentation</span></a></li>
-	        		        <li><a href='/uniqueref/updates'><span>Update History</span></a></li>
+                            <li><a href='/uniqueref/help/'><span>Documentation</span></a></li>
+	        		        <li><a href='/uniqueref/updates/'><span>Update History</span></a></li>
                             <li><a href="{% url 'contact' %}">Contact</a></li>
                             <li><a href="{% url 'about' %}">About</a></li>
                         </ul>
@@ -110,15 +118,15 @@
         <hr/>
         <footer>
             <p>
-                &copy; {{ year }} - Elmer Stickel, Brummelkamp Lab, Netherlands Cancer Institute -
+                &copy; {{ year }} - Elmer Stickel, Brummelkamp Lab, Netherlands Cancer Institute
                 {% if user.is_authenticated %}
-                Logged in as {{ user.first_name }} -
-                <a href="/edit_account">Account details</a>
+                    - Logged in as: {{ user.first_name }}
+                    (<a href="/edit_account/">account details</a>)
                 {% else %}
-                you are not yet logged in
+                    - you are not yet logged in
                 {% endif %}
+                - Current reference: {{ request.session.refname }} (<a href="/switch-reference-genome/">change</a>)
             </p>
-
         </footer>
     </div>
 

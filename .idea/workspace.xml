@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="47a79cc2-f322-4559-8340-ff1fec9fb9c1" name="Default" comment="" />
+    <list default="true" id="47a79cc2-f322-4559-8340-ff1fec9fb9c1" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/bokeh-latest.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/bokeh-widgets-latest.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/ComparativeAnalysis.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/Screens.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalAnalysis.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalBionomialAnalysis.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/SyntheticLethalForms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/UserMessages.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/synthetic_lethal/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/landing.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout_old.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/screen.png" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/content/screen.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/the_tool.iml" afterPath="$PROJECT_DIR$/.idea/the_tool.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DjangoWebProject/urls.py" afterPath="$PROJECT_DIR$/DjangoWebProject/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/admin.py" afterPath="$PROJECT_DIR$/uniqueref/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/custom_functions.py" afterPath="$PROJECT_DIR$/uniqueref/custom_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/forms.py" afterPath="$PROJECT_DIR$/uniqueref/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/globalvars.py" afterPath="$PROJECT_DIR$/uniqueref/globalvars.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/models.py" afterPath="$PROJECT_DIR$/uniqueref/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/plots.py" afterPath="$PROJECT_DIR$/uniqueref/plots.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-widgets-latest.min.js" afterPath="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-widgets-latest.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/opengenefinder.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/opengenefinder.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/singlescreen.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/singlescreen.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" afterPath="$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/urls.py" afterPath="$PROJECT_DIR$/uniqueref/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/views.py" afterPath="$PROJECT_DIR$/uniqueref/views.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -9,30 +44,153 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/uniqueref/views.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#65#0" expanded="true" />
-              </folding>
+              <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parameterform.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="625">
+              <caret line="76" column="23" lean-forward="false" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="formvars.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>fe_con</find>
+      <find>self.control_data</find>
+      <find>SenseAntisenseFishtail</find>
+      <find>width</find>
+      <find>attr</find>
+      <find>layout</find>
+      <find>show</find>
+      <find>Hov</find>
+      <find>FixedT</find>
+      <find>ComparativePlot</find>
+      <find>name</find>
+      <find>compo</find>
+      <find>Legen</find>
+      <find>df</find>
+      <find>logger.error(&quot;Formdata: %s&quot; % str(self.formdata))</find>
+      <find>0.12.</find>
+      <find>senseratio</find>
+      <find>sig_gen</find>
+      <find>textsize</find>
+      <find>logger</find>
+      <find>relgenenam</find>
+      <find>ration</find>
+      <find>annot</find>
+      <find>self.fdr</find>
+      <find>get_name</find>
+      <find>experiment_in</find>
+      <find>gridp</find>
+      <find>vplo</find>
+      <find>webgl</find>
+      <find>webg</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/uniqueref/forms/reference.py" />
+        <option value="$PROJECT_DIR$/uniqueref/forms.py" />
+        <option value="$PROJECT_DIR$/uniqueref/generalforms/login.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/switchref.html" />
+        <option value="$PROJECT_DIR$/uniqueref/misc/__init__.py" />
+        <option value="$PROJECT_DIR$/uniqueref/misc/list_annotations.py" />
+        <option value="$PROJECT_DIR$/uniqueref/misc/urls.py" />
+        <option value="$PROJECT_DIR$/uniqueref/urls.py" />
+        <option value="$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/pandas_bootstrap_table.js" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/listannotations.html" />
+        <option value="$PROJECT_DIR$/uniqueref/misc/views.py" />
+        <option value="$PROJECT_DIR$/uniqueref/misc/list_functions.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/SL/selectscreen.html" />
+        <option value="$PROJECT_DIR$/uniqueref/generalforms/reference.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/forms/formcheck.py" />
+        <option value="$PROJECT_DIR$/uniqueref/generalforms/forminput.py" />
+        <option value="$PROJECT_DIR$/uniqueref/views.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/forms/forminput.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/forms/screenform.py" />
+        <option value="$PROJECT_DIR$/uniqueref/models.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/unused_code/gridplots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/baseplots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/plots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/unused_code/comparativeanalysis code.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/gridplot.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/analysis.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/colors.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/urls.py" />
+        <option value="$PROJECT_DIR$/uniqueref/baseclasses.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/baseclasses.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/results.py" />
+        <option value="$PROJECT_DIR$/uniqueref/sharedvars/plotvars.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/views.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/unused_code/analysis.py" />
+        <option value="$PROJECT_DIR$/DjangoWebProject/settings.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/plots/fishtails.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/plotvars.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/plots/annotate.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/screen.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/sample.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py" />
+        <option value="$PROJECT_DIR$/uniqueref/plots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/plots/baseplots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py" />
+        <option value="$PROJECT_DIR$/DjangoWebProject/urls.py" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="56" />
     <option name="y" value="23" />
-    <option name="width" value="1680" />
-    <option name="height" value="947" />
+    <option name="width" value="1624" />
+    <option name="height" value="797" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -52,58 +210,18 @@
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uniqueref" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="other-static-files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="the_tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DjangoWebProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+              <item name="DjangoWebProject" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -111,6 +229,22 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/uniqueref/templates/uniqueref" />
+      <recent name="$PROJECT_DIR$/uniqueref/SL/forms" />
+      <recent name="$PROJECT_DIR$/uniqueref/static/uniqueref/content" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/uniqueref/SL/unused_code" />
+      <recent name="$PROJECT_DIR$/uniqueref/SL/plots" />
+      <recent name="$PROJECT_DIR$/uniqueref" />
+      <recent name="$PROJECT_DIR$/uniqueref/SL" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -123,6 +257,124 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="the_tool" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="the_tool" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="the_tool" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="phenosaurusdev.nki.nl" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="phenosaurusdev.nki.nl" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="phenosaurusdev.nki.nl" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="the_tool" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -137,26 +389,39 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
+    <frame x="56" y="23" width="1624" height="797" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935917" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.058685444" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36472818" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935917" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -164,17 +429,188 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/uniqueref/SL/plots/annotate.py</url>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/DjangoWebProject/urls.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="7" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/uniqueref/views.py">
+    <entry file="file://$PROJECT_DIR$/uniqueref/misc/list_functions.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/selectscreen.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/bionomialanalysis.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/UserMessages.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/misc/views.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/generalforms/forminput.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/forminput.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/generalforms/reference.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/admin.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/Screens.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/custom_functions.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/unused_code/gridplots.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/unused_code/comparativeanalysis code.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/colors.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/screenform.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/views.py.bu" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/baseclasses.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/sharedvars/formvars.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/sharedvars/messages/errors.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/sharedvars/plotvars.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/uniquefinder.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/fixedscreensummary.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/unused_code/analysis.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/views.py" />
+    <entry file="file://$PROJECT_DIR$/DjangoWebProject/settings.py" />
+    <entry file="file://$PROJECT_DIR$/static/uniqueref/content/bokeh-latest.min.css" />
+    <entry file="file://$PROJECT_DIR$/static/uniqueref/scripts/bokeh-latest.min.js" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/plotvars.py" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/annotate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/results.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1417">
+          <caret line="94" column="18" lean-forward="true" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/screen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="85" column="77" lean-forward="false" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sample.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="253" column="71" lean-forward="true" selection-start-line="253" selection-start-column="71" selection-end-line="253" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/plots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="174" column="28" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/baseclasses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="18" column="39" lean-forward="false" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-320">
+          <caret line="92" column="67" lean-forward="false" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/fishtails.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/baseplots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="57" lean-forward="true" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" />
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DjangoWebProject/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="32" lean-forward="true" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
           <folding>
-            <element signature="e#0#65#0" expanded="true" />
+            <element signature="e#49#78#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="76" column="23" lean-forward="false" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

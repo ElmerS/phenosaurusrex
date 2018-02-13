@@ -2,16 +2,34 @@ from django.db import models
 from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django_pandas.managers import DataFrameManager
+
 from django.contrib.auth.models import Group
 
+
+class ReferenceGenome(models.Model):
+	shortname = models.CharField(max_length=50)
+	longname = models.CharField(max_length=400)
+	description = models.TextField()
+	objects = DataFrameManager()  # For django_pandas
+
+	def __str__(self):  # Returns the name of a gene
+		return force_bytes('%s' % (self.longname))  # From char to str
+
+	class Meta:
+		verbose_name = 'Genome entry'
+		verbose_name_plural = 'reference genomes in the database'
+
+
 class Screen(models.Model):			# Model for screens
-	name = models.TextField()	
+	name = models.TextField()
 	scientist = models.ForeignKey('auth.User')
 	description = models.TextField()
 	longdescription = models.TextField()
 	sequenceids = models.TextField()
-	directory = models.TextField()
-	groups = models.ManyToManyField(Group, through='ScreenPermissions', verbose_name="Group permissions")
+	conditions = models.TextField()
+	controlscreen = models.ForeignKey('Screen', null=True, blank=True)
+	relrefs = models.ManyToManyField(ReferenceGenome)
+	groups = models.ManyToManyField(Group)
 	induced = models.BooleanField(
 		default=False)
 	knockout = models.BooleanField(
@@ -39,9 +57,21 @@ class Screen(models.Model):			# Model for screens
 	def __str__(self):	
 		return self.name		# Return the name of screen, already str so no conversion needed
 
+	def list_refs_as_str(self):
+		return "\n".join([ref.shortname for ref in self.relrefs.all()])
+
+	def list_groups_as_str(self):
+		return "\n".join([ref.name for ref in self.groups.all()])
+
+	def list_groups(self):
+		return [ref.name for ref in self.groups.all()]
+
 	class Meta:
 		verbose_name = 'Name, descriptions and type of a screen'
  		verbose_name_plural = 'screens and their individual properties'
+		indexes = [
+			models.Index(fields=['name'])
+		]
 
 # A crosstable to store the association between groups (gids) and screens
 class ScreenPermissions(models.Model):
@@ -53,10 +83,12 @@ class ScreenPermissions(models.Model):
 	def __str__(self):	
 		return force_bytes('%s' % (self.relscreen_id))		# Return the name of screen, already str so no conversion needed
 
+
 class Gene(models.Model):
 	name = models.CharField(max_length=400)
 	description = models.TextField()
 	chromosome = models.CharField(max_length=2)
+	relref = models.ForeignKey(ReferenceGenome)  # The associated reference genome
 	orientation = models.CharField(max_length=1)
 	objects = DataFrameManager()   		# For django_pandas
 
@@ -66,6 +98,9 @@ class Gene(models.Model):
 	class Meta:
 		verbose_name = 'Gene entry'
  		verbose_name_plural = 'the genes in the database'
+		indexes = [
+			models.Index(fields=['name'])
+		]
 
 class Location(models.Model):					# One gene can have multiple, non-overlapping, locations on the (same) chromosome
 	relgene = models.ForeignKey(Gene)
@@ -102,11 +137,11 @@ class PSSDatapoint(models.Model):			# A model that holds each indiviual datapoin
 
 	class Meta:
 		verbose_name = 'Datapoint of a positive selection screen'
- 		verbose_name_plural = 'datapoints of positive selection screens'
+		verbose_name_plural = 'datapoints of positive selection screens'
 
 class SLSDatapoint(models.Model):			# Holds the information of for all datapoints of Synthetic Lethal Screens
 	relscreen = models.ForeignKey(Screen)	# The screen it is associated with
-	relgene = models.ForeignKey(Gene) 	# The name of the associated gene for each datapoint
+	relgene = models.ForeignKey(Gene)
 	replicate = models.IntegerField() # Number of associated replicate
 	sense = models.IntegerField() # Number of sense mutations (non-normalized, non-zero corrected)
 	antisense = models.IntegerField() # Number of antisense mutations (non-normalized, non-zero corrected)
@@ -209,19 +244,12 @@ class SeqSummary(models.Model):			# A model that holds each indiviual datapoint 
 		verbose_name = 'Summary of screen sequencing results'
  		verbose_name_plural = 'summaries of screen sequencing results'
 
-class CustomVariables(models.Model):
-	custom_track_list_for_summary = models.IntegerField()
-	def __str__(self):
-		return force_bytes('%s' % (self.custom_track_list_for_summary))  # Return name of related screen
-
-	class Meta:
-		verbose_name = 'custom variable'
-		verbose_name_plural = 'custom variables'
 
 class Settings(models.Model):
 	variable_name = models.CharField(max_length=50)
 	value = models.TextField()
 	comment = models.TextField()
+	objects = DataFrameManager()  # Again, needed for django_pandas
 	def __str__(self):
 		return force_bytes('%s: %s' % (self.variable_name, self.value))
 
