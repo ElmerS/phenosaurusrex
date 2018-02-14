@@ -2,6 +2,7 @@ from bokeh.layouts import layout, widgetbox, row
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.models.widgets import Div
+import numpy as np
 
 class ComparativePlot(object):
 	def __init__(self, name):
@@ -28,7 +29,12 @@ class ComparativePlot(object):
 		rows.append([widgetbox(expdiv)])
 		rows.append(self.experiment_row)
 		rows.append([widgetbox(wtdiv)])
-		rows.append(self.control_row)
+		# Make sure no more than 3 plots are plotted in a single row, otherwise Bokeh crashes
+		if len(self.control_row)>=3:
+			for part in np.array_split(self.control_row,2):
+				rows.append(part.tolist()) # Bokeh doesn't swallap ndarrays
+		else:
+			rows.append(self.control_row)
 
 		# And put them in a gridplot
 		self.gridplot = layout(
