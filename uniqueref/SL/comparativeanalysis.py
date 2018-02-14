@@ -147,6 +147,6 @@ class ComparativeAnalysis:
 				comparativeplot.add_control_plot(bpo)  # Parse the Bokeh plot to the comparative overview
 
 		comparativeplot.make_gridplot()
-		script, div = comparativeplot.get_html()
-		context = {'script':script, 'div':div}
+		exp_script, control_script, exp_div, control_div = comparativeplot.get_html()
+		context = {'exp_script':exp_script, 'control_script':control_script, 'exp_div':exp_div, 'control_div':control_div}
 		return context

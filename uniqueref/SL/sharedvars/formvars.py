@@ -6,8 +6,7 @@ A bunch of variables and messages for showing the forms to build synthetic letha
 
 no_controls_available= 'Either no control was associated with this screen, a control was associated but not uploaded' + \
 					   ' or you do not have permission to query the control'
-binom_choice = 'Internal binomial test'
-compare_choice = 'Compare against controls'
+rendering_mode_label = 'Rendering mode'
 gc_choice = 'Link to Genecards'
 hah_choice = 'Label and highlight datapoint'
 gp_choice = 'Geneplot upon click'
@@ -22,12 +21,14 @@ effect_size_label = "Cut-off"
 direction_label = "Demand identical directionality"
 custom_list_label = 'and/or select one or multiple a tracks'
 annotated_all_sig_genes_label = "Or, if no genes specified, label all significant genes"
-annotate_genes_label = 'Enter genename(s), space separated'
-aggregate_label = 'Aggregate replicates'
+annotate_genes_label = 'Enter genename(s) that you want to label in the plot, space separated'
+aggregate_label = 'Aggregate control replicates'
+table_label = 'List significant genes in table'
 
-analysischoices = (
-	('bimom', binom_choice),
-	('compare', compare_choice)
+rendering_mode = (
+	('default', 'Default'),
+	('svg', 'SVG'),
+	('opengl', 'OpenGL')
 )
 
 onclickactionchoices = (
@@ -48,6 +49,7 @@ default_directionality_constraint = True
 default_aas = True  # Annotate All Significant (genes)
 default_analysis = 'compare'
 aggregate = False
+table = True
 
 '''
 

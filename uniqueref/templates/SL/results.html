@@ -9,9 +9,11 @@
 
 <div class="row">
     <div class="col-md-12 col-md-12">
-        {% if script != None %}
-            {{ script | safe }}
-            {{ div | safe }}
+        {% if exp_script != None %}
+            {{ exp_script | safe }}
+            {{ exp_div | safe }}
+            {{ control_script | safe }}
+            {{ control_div | safe }}
         {% endif %}
     </div>
 </div>

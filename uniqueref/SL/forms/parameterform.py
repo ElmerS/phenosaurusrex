@@ -43,7 +43,7 @@ class ParameterForm(forms.Form):
 
 
 
-	analysis = forms.ChoiceField(label=fv.analysis_choices, choices=fv.analysischoices, initial='compare',
+	rendering_mode = forms.ChoiceField(label=fv.rendering_mode_label, choices=fv.rendering_mode, initial='default',
 								 widget=forms.Select(attrs={'class': 'form-control'}))
 
 	oca = forms.ChoiceField(label='Select action on click', choices=fv.onclickactionchoices, initial=fv.default_oca,
@@ -78,6 +78,9 @@ class ParameterForm(forms.Form):
 
 	rendering = forms.ChoiceField(label='Select alternative rendering', choices=fv.renderingchoices,
 							widget=forms.Select(attrs={'class': 'form-control'}))
+
+	table = forms.BooleanField(required=False, initial=fv.table, label=fv.table_label,
+							 widget=forms.CheckboxInput())
 
 
 	def lookupcontrols(self):

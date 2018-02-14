@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="47a79cc2-f322-4559-8340-ff1fec9fb9c1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py" afterPath="$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py" afterPath="$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py" afterPath="$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py" afterPath="$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/SL/results.html" afterPath="$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" afterPath="$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +25,7 @@
       <file leaf-file-name="baseplots.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/baseplots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
+            <state relative-caret-position="-125">
               <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
@@ -29,14 +34,74 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gridplots.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gridplots.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="34" column="75" lean-forward="false" selection-start-line="34" selection-start-column="75" selection-end-line="34" selection-end-column="75" />
+            <state relative-caret-position="509">
+              <caret line="51" column="67" lean-forward="false" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-81">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="comparativeanalysis.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="149" column="85" lean-forward="true" selection-start-line="149" selection-start-column="85" selection-end-line="149" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="results.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/results.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parameterform.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="549">
+              <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="formvars.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="76" lean-forward="false" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selectparameters.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="10" column="38" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -123,28 +188,28 @@
         <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/colors.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/urls.py" />
         <option value="$PROJECT_DIR$/uniqueref/baseclasses.py" />
-        <option value="$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
         <option value="$PROJECT_DIR$/uniqueref/SL/baseclasses.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/results.py" />
         <option value="$PROJECT_DIR$/uniqueref/sharedvars/plotvars.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/views.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/unused_code/analysis.py" />
         <option value="$PROJECT_DIR$/DjangoWebProject/settings.py" />
-        <option value="$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
         <option value="$PROJECT_DIR$/uniqueref/SL/plots/fishtails.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/plotvars.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/plots/annotate.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/screen.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/sample.py" />
-        <option value="$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py" />
         <option value="$PROJECT_DIR$/uniqueref/plots.py" />
         <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" />
         <option value="$PROJECT_DIR$/uniqueref/SL/plots/baseplots.py" />
-        <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py" />
-        <option value="$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py" />
         <option value="$PROJECT_DIR$/DjangoWebProject/urls.py" />
         <option value="$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py" />
         <option value="$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py" />
+        <option value="$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py" />
+        <option value="$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
       </list>
     </option>
   </component>
@@ -196,7 +261,34 @@
               <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
               <item name="uniqueref" type="462c0819:PsiDirectoryNode" />
               <item name="SL" type="462c0819:PsiDirectoryNode" />
+              <item name="forms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+              <item name="uniqueref" type="462c0819:PsiDirectoryNode" />
+              <item name="SL" type="462c0819:PsiDirectoryNode" />
               <item name="plots" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+              <item name="uniqueref" type="462c0819:PsiDirectoryNode" />
+              <item name="SL" type="462c0819:PsiDirectoryNode" />
+              <item name="sharedvars" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+              <item name="uniqueref" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phenosaurusdev.nki.nl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phenosaurusdev.nki.nl" type="462c0819:PsiDirectoryNode" />
+              <item name="uniqueref" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="SL" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -453,7 +545,6 @@
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/colors.py" />
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/screenform.py" />
     <entry file="file://$PROJECT_DIR$/uniqueref/views.py.bu" />
-    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html" />
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/baseclasses.py" />
     <entry file="file://$PROJECT_DIR$/uniqueref/sharedvars/formvars.py" />
     <entry file="file://$PROJECT_DIR$/uniqueref/sharedvars/messages/errors.py" />
@@ -462,12 +553,10 @@
     <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/syntheticlethal.html" />
     <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/fixedscreensummary.html" />
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/unused_code/analysis.py" />
-    <entry file="file://$PROJECT_DIR$/uniqueref/SL/views.py" />
     <entry file="file://$PROJECT_DIR$/DjangoWebProject/settings.py" />
     <entry file="file://$PROJECT_DIR$/static/uniqueref/content/bokeh-latest.min.css" />
     <entry file="file://$PROJECT_DIR$/static/uniqueref/scripts/bokeh-latest.min.js" />
     <entry file="file://$PROJECT_DIR$/uniqueref/static/uniqueref/scripts/bokeh-latest.min.js" />
-    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/results.html" />
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/plotvars.py" />
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/annotate.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -528,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-320">
-          <caret line="92" column="67" lean-forward="false" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/fishtails.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -543,13 +625,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/base_uniqueref.html" />
-    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -574,13 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/templates/uniqueref/layout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -589,9 +657,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/forms/parameterform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/baseplots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
+        <state relative-caret-position="-125">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
@@ -599,13 +675,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/selectparameters.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="10" column="38" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/sharedvars/formvars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="76" lean-forward="false" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/uniqueref/SL/plots/gridplots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="34" column="75" lean-forward="false" selection-start-line="34" selection-start-column="75" selection-end-line="34" selection-end-column="75" />
+        <state relative-caret-position="509">
+          <caret line="51" column="67" lean-forward="false" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-81">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/SL/comparativeanalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="149" column="85" lean-forward="true" selection-start-line="149" selection-start-column="85" selection-end-line="149" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uniqueref/templates/SL/results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

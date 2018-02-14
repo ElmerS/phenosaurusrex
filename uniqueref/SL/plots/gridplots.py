@@ -8,7 +8,8 @@ class ComparativePlot(object):
 	def __init__(self, name):
 		self.control_plots = {}
 		self.experiment_plots = {}
-		self.gridplot = None
+		self.exp_gridplot = None
+		self.control_gridplot = None
 		self.experiment_row = [] # To keep track of the plots in the row with experiment plots
 		self.control_row = [] # To keep track of the plots in the row with control population plots
 		self.name = name
@@ -22,30 +23,34 @@ class ComparativePlot(object):
 
 
 	def make_gridplot(self):
-		# Append the experiment and control rows
+		# Create a title and layoutDOMs for experiment and control plots
 		expdiv = Div(text=" ".join(["""<font size=4>""", "Experiment:", self.name, """</>"""]))
-		wtdiv = Div(text="""<font size=4>Wildtype controls</>""")
-		rows = []
-		rows.append([widgetbox(expdiv)])
-		rows.append(self.experiment_row)
-		rows.append([widgetbox(wtdiv)])
-		# Make sure no more than 3 plots are plotted in a single row, otherwise Bokeh crashes
-		if len(self.control_row)>=3:
-			for part in np.array_split(self.control_row,2):
-				rows.append(part.tolist()) # Bokeh doesn't swallap ndarrays
-		else:
-			rows.append(self.control_row)
+		exp_rows = []
+		exp_rows.append([widgetbox(expdiv)])
+		exp_rows.append(self.experiment_row)
+		self.exp_gridplot = layout(
+			children=exp_rows,
+			responsive=True
+		)
 
-		# And put them in a gridplot
-		self.gridplot = layout(
-			children=rows,
-			sizing_mode='scale_width',
+		wtdiv = Div(text="""<font size=4>Wildtype controls</>""")
+		control_rows = []
+		control_rows.append([widgetbox(wtdiv)])
+		# Make sure no more than 3 control plots are plotted in a single row, otherwise Bokeh crashes
+		if len(self.control_row)>=4:
+			for part in np.array_split(self.control_row,2):
+				control_rows.append(part.tolist())
+		else:
+			control_rows.append(self.control_row)
+		self.control_gridplot = layout(
+			children=control_rows,
 			responsive=True
 		)
 		pass
 
 	def get_html(self):
-		script, div = components(self.gridplot, CDN, "bokeh-gl")
-		return script, div
+		exp_script, exp_div = components(self.exp_gridplot, CDN, "bokeh-gl")
+		control_script, control_div = components(self.control_gridplot, CDN, "bokeh-gl")
+		return exp_script, control_script, exp_div, control_div
 
 
