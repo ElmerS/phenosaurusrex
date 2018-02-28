@@ -4,7 +4,7 @@ from uniqueref.SL.baseclasses import ValidatedSLIQuerySet
 from uniqueref.SL.plots.annotate import LabeledSampleData
 from uniqueref.SL.plots.fishtails import SenseAntisenseFishtail
 from uniqueref.SL.plots.gridplots import ComparativePlot
-from uniqueref.SL.results import SLIResults
+from uniqueref.SL.results import SLIResults, ResultsTables
 from uniqueref.SL.sample import SampleData
 from uniqueref.SL.screen import ScreenInfo, ScreenData
 
@@ -41,6 +41,7 @@ class ComparativeAnalysis:
 		self.binom_cutoff = float(formdata['binom_p_value'][0])
 		self.effect_size = float(formdata['effect_size'][0])
 		self.oca = str(formdata['oca'])
+		self.rendering_mode = str(formdata['rendering_mode'][0])
 		# These parameters' existence needs to be checked first:
 		self.customgenelistids = [int(id) for id in formdata['customgenelist']] if 'customgenelist' in formdata else False
 		self.customgenes = [str(gene) for gene in formdata['genes']] if 'genes' in formdata else False
@@ -48,9 +49,9 @@ class ComparativeAnalysis:
 		self.directionality = True if 'directionality' in formdata else False
 		self.aas = True if 'aas' in formdata else False
 		self.fdr = True if 'fdr' in formdata else False
+		self.table = True if 'table' in formdata else False
 
-
-		return
+		pass
 
 
 	def get_name(self):
@@ -85,9 +86,13 @@ class ComparativeAnalysis:
 		# Get the data
 		experiment_data, control_data = self.build_dataframes()
 
-		# Create results object that can be to identify significant genes
+		# Create results object that can be used to identify the significant genes
 		results = SLIResults(experiment_data, control_data, self.annotation_parameters)
 		sig_genes = results.get_significant_genes()
+		context = {}
+		if self.table:
+			tables = ResultsTables(sig_genes, experiment_data).get()
+			context.update({'tables':tables})
 
 		# Initialize an instance of ComparativePlot to hold the plots of the experiment and control populations
 		comparativeplot = ComparativePlot(self.experiment_info.name)
@@ -102,6 +107,7 @@ class ComparativeAnalysis:
 			come on top of that (such as tracks etc.)
 			'''
 			d = LabeledSampleData(experiment_data.replicates[r], labelparams)
+			attr['rendering_mode'] = self.rendering_mode
 			attr['data'] = d.color_data()
 			attr['text_data'] = d.get_annotations()
 			attr['oca'] = self.oca
@@ -121,6 +127,7 @@ class ComparativeAnalysis:
 			aggdata = control_data.aggregate_controls()
 			# Give color attributes to genes according to previously calculated significance
 			d = LabeledSampleData(aggdata, labelparams)
+			attr['rendering_mode'] = self.rendering_mode
 			attr['data'] = d.color_data()
 			attr['text_data'] = d.get_annotations()
 			attr['oca'] = self.oca
@@ -138,6 +145,7 @@ class ComparativeAnalysis:
 				come on top of that (such as tracks etc.)
 				'''
 				d = LabeledSampleData(control_data.replicates[c], labelparams)
+				attr['rendering_mode'] = self.rendering_mode
 				attr['data'] = d.color_data()
 				attr['text_data'] = d.get_annotations()
 				attr['oca'] = self.oca
@@ -148,5 +156,7 @@ class ComparativeAnalysis:
 
 		comparativeplot.make_gridplot()
 		exp_script, control_script, exp_div, control_div = comparativeplot.get_html()
-		context = {'exp_script':exp_script, 'control_script':control_script, 'exp_div':exp_div, 'control_div':control_div}
+		context.update({'exp_script':exp_script, 'control_script':control_script,
+				   'exp_div':exp_div, 'control_div':control_div})
+
 		return context

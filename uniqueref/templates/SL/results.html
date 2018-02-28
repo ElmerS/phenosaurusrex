@@ -14,6 +14,13 @@
             {{ exp_div | safe }}
             {{ control_script | safe }}
             {{ control_div | safe }}
+            {% if tables != None %}
+                <br>
+                {% for t in tables %}
+                    <h4>Statistics for replicate {{ t.0 | safe }}</h4>
+                    {{ t.1 | safe }}<br>
+                {% endfor %}
+            {% endif %}
         {% endif %}
     </div>
 </div>

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Dev imports
 import logging
@@ -22,13 +23,15 @@ class SLIResults(object):
 		self.experiment_data = experiment_data
 		self.control_data = control_data
 		self.parameters = parameters
+		self.sig_genes = None
 		self.results = pd.DataFrame()
 
 	def get_significant_genes(self):
 		pass_pv_cutoff = self.get_pv_genes()
 		pass_effect_size_cutoff = self.get_effectsize_genes(pass_pv_cutoff)
 		pass_directionality_cutoff = self.get_directionality_genes(pass_effect_size_cutoff)
-		return pass_directionality_cutoff
+		self.sig_genes = pass_directionality_cutoff
+		return self.sig_genes
 
 	def get_pv_genes(self):
 		'''
@@ -126,5 +129,17 @@ class SLIResults(object):
 		return dir_filtered
 
 
-	def get_table(self):
-		pass
+
+class ResultsTables(object):
+
+	def __init__(self, sig_genes, experiment_data):
+		self.sig_genes = sig_genes
+		self.experiment_data = experiment_data
+
+	def get(self):
+		tables = []
+		for r in self.experiment_data.replicates.keys():
+			df = self.experiment_data.replicates[r]
+			df = df[df.relgene.isin(self.sig_genes)]
+			tables.append([r, df.to_html(index=False, justify='left', escape=False, border=0)])
+		return tables

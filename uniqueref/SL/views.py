@@ -43,7 +43,6 @@ class ScreenPlotView(BaseView):
 	def get(self, request, *args, **kwargs):
 		super(ScreenPlotView, self).get(self, request, *args, **kwargs)
 		if True == True: # this needs to be replaced by if parameterform.ParameterFormInput(self.user_details, self.formdata).check():
-			#logger.error("Formdata: %s" % str(self.formdata))
 			comparison = ComparativeAnalysis(self.user_details, self.formdata)
 			renderobjects = comparison.process()
 			self.context.update(renderobjects)

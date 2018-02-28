@@ -90,8 +90,6 @@ class ScreenData(object):
 		merged_controls['insertions'] = merged_controls[insertions_cols].mean(axis=1)
 		merged_controls['binom_fdr'] = merged_controls[binom_fdr_cols].max(axis=1)
 
-		logger.error("merged_controls: \n%s" % (str(merged_controls)))
-
 		'''
 		Return aggregate values to original self.replicates dataframe
 		'''

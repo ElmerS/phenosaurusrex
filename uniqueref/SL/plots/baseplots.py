@@ -25,10 +25,16 @@ class Fishtail(object):
 			x_range=(self.attr['dim']['min_x'], np.log10(self.attr['dim']['max_x'])),
 			tools = [TOOLS],
 			title = self.attr['title'],
-			#output_backend = "svg",
 			x_axis_label = self.attr['x_label'],
 			y_axis_label = self.attr['y_label']
 		)
+
+		# Adjust output backend if required
+		if self.attr['rendering_mode'] == 'svg':
+			p.output_backend = "svg"
+		elif self.attr['rendering_mode'] == 'opengl':
+			p.output_backend = "webgl"
+
 
 		# This is the place for some styling of the graph
 		#p.toolbar_location = self.attr['toolbar_location']
